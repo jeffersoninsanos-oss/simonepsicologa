@@ -12,6 +12,7 @@ const base = process.env["BASE_PATH"] ?? "/";
 const isPages = base !== "/";
 
 export default defineConfig({
+  nitro: isPages ? false : undefined,
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
