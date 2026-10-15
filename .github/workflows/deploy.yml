@@ -1,0 +1,66 @@
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BASE_PATH: /simonepsicologa/
+      NITRO_PRESET: static
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Instalar dependências
+        run: bun install --frozen-lockfile
+
+      - name: Gerar o site
+        run: bun run build
+
+      - name: Localizar a pasta do site
+        run: |
+          for dir in .output/public dist/client dist; do
+            if [ -f "$dir/index.html" ] || [ -f "$dir/_shell.html" ]; then
+              SITE_DIR="$dir"
+              break
+            fi
+          done
+          if [ -z "$SITE_DIR" ]; then
+            echo "Nenhuma pasta com index.html foi encontrada. Conteúdo gerado:"
+            find .output dist -maxdepth 3 2>/dev/null || true
+            exit 1
+          fi
+          if [ ! -f "$SITE_DIR/index.html" ] && [ -f "$SITE_DIR/_shell.html" ]; then
+            cp "$SITE_DIR/_shell.html" "$SITE_DIR/index.html"
+          fi
+          cp "$SITE_DIR/index.html" "$SITE_DIR/404.html"
+          touch "$SITE_DIR/.nojekyll"
+          echo "SITE_DIR=$SITE_DIR" >> "$GITHUB_ENV"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.SITE_DIR }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
