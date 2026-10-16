@@ -44,9 +44,9 @@
 .site-container { width: min(1088px, calc(100% - 48px)); margin-inline: auto; }
 .center { text-align: center; }
 .site-header { background: var(--background); position: sticky; top: 0; z-index: 30; }
-.header-inner { height: 128px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.header-inner { height: 148px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.official-logo { width: 122px; height: auto; aspect-ratio: 498 / 501; object-fit: contain; }
+.official-logo { width: 140px; height: auto; aspect-ratio: 498 / 501; object-fit: contain; }
 .site-footer .official-logo { width: 176px; height: auto; }
 .brand-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--button-gradient); color: var(--primary-foreground); }
 .brand-name { display: block; font: 21px 'Playfair Display', Georgia, serif; line-height: 1.3; }
@@ -174,5 +174,5 @@
  .audience-card img { height: auto; aspect-ratio: 2 / 3; }
  .lecture-image { height: 440px; padding: 14px; }
 }
-@media(max-width:760px) { .header-inner { height: 108px; } .official-logo { width: 98px; height: auto; } }
+@media(max-width:760px) { .header-inner { height: 120px; } .official-logo { width: 112px; height: auto; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
