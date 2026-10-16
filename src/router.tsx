@@ -10,8 +10,6 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
-    // Necessário no GitHub Pages, onde o site fica em /simonepsicologa/
-    basepath: import.meta.env.BASE_URL.replace(/\/$/, "") || "/",
   });
 
   return router;

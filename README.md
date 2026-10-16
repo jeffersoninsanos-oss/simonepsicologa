@@ -1,25 +1,37 @@
-# Simone Costa — Psicóloga
+# Simone Costa — Site da psicóloga
 
-Código-fonte do site com o logo oficial, fotos, páginas e efeitos visuais.
+Site institucional em português: apresentação, atendimento (crianças, adolescentes e adultos),
+palestras para empresas e escolas, localização e contato por WhatsApp.
 
-## Enviar ao GitHub
-Extraia este ZIP e envie os arquivos e pastas extraídos para a raiz do seu repositório. Não envie somente o ZIP.
+## Como rodar
 
-## Executar localmente
-Instale Node.js 22 ou mais recente e Bun. Na pasta do projeto:
+Extraia o conteúdo deste arquivo na raiz do repositório e execute:
 
-```sh
+```bash
 bun install
-bun run dev
+bun run dev     # abre o site em modo de desenvolvimento
+bun run build   # gera a versão de produção
 ```
 
-## Versão de produção
-```sh
-bun run build
-```
+## Tecnologias
 
-Projeto React, TypeScript, TanStack Start e Tailwind CSS, com configuração de produção para Cloudflare. GitHub armazena o código, mas não publica automaticamente o site. GitHub Pages não executa diretamente esta aplicação TanStack Start.
+- React 19 + TypeScript
+- TanStack Start (rotas, renderização no servidor)
+- Tailwind CSS v4
+- Build preparado para Cloudflare
 
-As fotos e o logo estão incluídos em `public/images`, com referências locais para não depender da Lovable. O logo foi preservado como enviado: o fundo quadriculado faz parte do JPEG original.
+## Conteúdo
 
-Não inclui senhas, chaves privadas, dependências instaladas nem arquivos de compilação.
+- `src/routes/` — uma página por seção: início, sobre, atendimento, palestras, contato.
+- `src/components/site.tsx` — cabeçalho, rodapé e todas as seções usadas pelas páginas.
+- `src/styles.css` — cores, fontes, efeitos e ajustes para celular.
+- `src/components/ui/button.tsx` — botões do site.
+- `public/images/` — fotos e o logo oficial com fundo transparente.
+- `public/favicon.png` — ícone do navegador, derivado do logo.
+- `src/test/` — testes de navegação.
+
+## Observações
+
+- O GitHub armazena o código, mas não publica o site automaticamente.
+- GitHub Pages não executa TanStack Start; para publicar, use a plataforma indicada no arquivo de build (Cloudflare) ou um host Node.
+- Nenhuma senha, chave privada ou dado de acesso está incluído neste pacote.
