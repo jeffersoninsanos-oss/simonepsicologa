@@ -1,4 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout, PageIntro, Audiences, PlaySection, Location, FAQ, ContactCTA, pageHead } from "@/components/site";
-export const Route = createFileRoute("/atendimento")({ head: () => pageHead("Atendimento psicológico", "Psicoterapia para crianças, adolescentes, adultos e idosos com Simone Costa. Atendimento presencial no Espaço Shambala, em Moema, e online."), component: Page });
+export const Route = createFileRoute("/atendimento")({ head: () => pageHead("Atendimento psicológico", "Psicoterapia para crianças, adolescentes e adultos com Simone Costa. Atendimento presencial no Espaço Shambala, em Moema, e online.", "/atendimento"), component: Page });
 function Page() { return <SiteLayout><PageIntro eyebrow="Atendimento" title={<>Um cuidado que respeita a sua <em>história</em></>} description="Um espaço seguro para acolher o que você sente, compreender as suas necessidades e construir novos caminhos — presencialmente em Moema ou online." /><Audiences full /><PlaySection /><Location /><FAQ /><ContactCTA /></SiteLayout>; }
