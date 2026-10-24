@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowRight, Award, Building2, CalendarDays, Check, ChevronDown, Ear, HeartHandshake, Laptop, Leaf, MapPin, Menu, MessageCircle, Phone, Sprout, X } from "lucide-react";
+import { ArrowRight, Award, Baby, Brain, Building2, CalendarDays, Check, ChevronDown, Ear, HandHeart, Heart, HeartHandshake, Laptop, Leaf, MapPin, Menu, MessageCircle, Phone, Sparkles, Sprout, UsersRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import portrait from "@/assets/portrait.jpg.asset.json";
 import about from "@/assets/about.jpg.asset.json";
@@ -60,7 +60,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => {
-    const sel = ".section-title,.section-intro,.pillar-card,.audience-card,.lecture-card,.lecture-image,.about-image,.rounded-photo,.split-grid > div:last-child,.faq-item,.location-info,.location-visual,.location-types > div,.contact-band .site-container,.page-intro .site-container,.lecture-formats";
+    const sel = ".section-title,.section-intro,.pillar-card,.audience-card,.lecture-card,.lecture-image,.about-image,.rounded-photo,.split-grid > div:last-child,.faq-item,.location-info,.location-visual,.location-types > div,.contact-band .site-container,.page-intro .site-container,.lecture-formats,.when-card,.specialty-icon";
     const els = Array.from(document.querySelectorAll<HTMLElement>(sel));
     const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     els.forEach(el => {
@@ -78,6 +78,33 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 }
 export function SectionTitle({ eyebrow, children, center = true }: { eyebrow: string; children: ReactNode; center?: boolean }) { return <div className={`section-title ${center ? "center" : ""}`}><p className="eyebrow">{eyebrow}</p><h2>{children}</h2></div>; }
 export function Hero() { return <section className="home-hero"><div className="site-container hero-grid"><div className="hero-copy"><p className="eyebrow">Psicóloga clínica · CRP 06/85827</p><h1>Um espaço de<br />cuidado para a<br />sua <em>saúde mental</em></h1><p className="hero-description">Atendo crianças, adolescentes, adultos e idosos com escuta qualificada, experiência prática e olhar humano e acolhedor.</p><div className="action-row"><WhatsApp>Agendar pelo WhatsApp</WhatsApp><Button asChild variant="careOutline"><Link to="/atendimento">Conhecer o atendimento <ArrowRight /></Link></Button></div><div className="credential-row"><span><Award />15 anos de clínica</span><span><MapPin />Moema · Espaço Shambala</span><span><Laptop />Atendimento online</span></div></div><div className="portrait-frame"><img src={assetUrl(portrait.url)} alt="Simone Costa, psicóloga clínica" fetchPriority="high" /><span className="portrait-caption">CRP 06/85827</span></div></div></section>; }
+const reasonsToSeekSupport = [
+  { icon: Brain, text: "A ansiedade, a preocupação ou o estresse têm ocupado espaço demais no seu dia a dia." },
+  { icon: Heart, text: "Uma mudança, perda ou fase difícil tem sido complicada de atravessar." },
+  { icon: HandHeart, text: "Conflitos nos relacionamentos estão afetando seu bem-estar." },
+  { icon: Sparkles, text: "Você quer se conhecer melhor e encontrar novas formas de lidar com o que sente." },
+];
+export function WhenToSeek() {
+  return <section className="section" id="quando-procurar"><div className="site-container">
+    <SectionTitle eyebrow="Quando procurar" >Você não precisa passar por tudo <em>sozinho</em></SectionTitle>
+    <p className="section-intro">A terapia pode ser um espaço de acolhimento e reflexão em diferentes momentos da vida. Não é preciso esperar chegar ao limite para buscar apoio.</p>
+    <div className="when-grid">{reasonsToSeekSupport.map(item => <article className="when-card" key={item.text}><span className="pillar-icon"><item.icon aria-hidden="true" /></span><p>{item.text}</p></article>)}</div>
+  </div></section>;
+}
+const specialtyIcons = [Baby, UsersRound, Heart, Brain, HandHeart, Sparkles];
+export function Specialties() {
+  return <section className="section lavender-band" id="especialidades"><div className="site-container">
+    <SectionTitle eyebrow="Especialidades">Áreas de <em>atuação</em></SectionTitle>
+    <p className="section-intro">Em breve, Simone vai compartilhar os temas e as especialidades que acompanha.</p>
+    <div className="specialty-icons" aria-label="Especialidades em atualização">{specialtyIcons.map((Icon, index) => <span className="specialty-icon" key={index} aria-hidden="true"><Icon /></span>)}</div>
+  </div></section>;
+}
+export function Reviews() {
+  return <section className="section" id="avaliacoes"><div className="site-container">
+    <SectionTitle eyebrow="Avaliações">Experiências reais, com <em>respeito</em></SectionTitle>
+    <div className="reviews-placeholder"><p>Este espaço será preenchido com avaliações reais, compartilhadas com autorização. Cada experiência é única e o sigilo de quem faz terapia vem sempre em primeiro lugar.</p></div>
+  </div></section>;
+}
 export function FirstContact() {
   const steps = [
     { icon: MessageCircle, title: "Entre em contato", text: "Chame a Simone pelo WhatsApp para saber mais sobre o atendimento." },

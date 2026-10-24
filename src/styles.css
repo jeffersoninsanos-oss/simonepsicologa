@@ -87,6 +87,15 @@
 .first-contact-card h3 { margin-bottom: 12px; font-size: 21px; }
 .first-contact-card p { margin: 0; font-size: 14px; }
 .first-contact-cta { margin-top: 32px; }
+.when-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 900px; margin-inline: auto; }
+.when-card { display: flex; align-items: center; gap: 20px; padding: 24px; border: 1px solid var(--border); border-radius: 22px; background: var(--card); box-shadow: var(--care-shadow); }
+.when-card .pillar-icon { flex: 0 0 48px; margin: 0; }
+.when-card p { margin: 0; }
+.specialty-icons { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; max-width: 800px; margin-inline: auto; }
+.specialty-icon { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid var(--border); border-radius: 24px; background: var(--card); color: var(--primary); box-shadow: var(--care-shadow); }
+.specialty-icon svg { width: 30px; height: 30px; }
+.reviews-placeholder { max-width: 760px; margin-inline: auto; padding: 30px; border: 1px solid var(--border); border-radius: 24px; background: var(--card); box-shadow: var(--care-shadow); text-align: center; }
+.reviews-placeholder p { margin: 0; }
 .pillar-card { background: var(--card); border: 1px solid var(--border); padding: 28px; border-radius: 28px; box-shadow: var(--care-shadow); }
 .pillar-icon { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 16px; color: var(--primary); background: var(--icon-gradient); margin-bottom: 23px; }
 .pillar-card h3 { margin-bottom: 14px; font-size: 21px; }
@@ -159,7 +168,8 @@
 .footer-inner p { font-size: 13px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 9px 20px; color: var(--muted-foreground); font-size: 13px; }
 .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 24px; color: var(--muted-foreground); font-size: 11px; }
-.floating-whatsapp { position: fixed; right: 20px; bottom: 20px; z-index: 40; border-radius: 50%; height: 56px; width: 56px; padding: 0; }
+.floating-whatsapp { --primary: #25d366; --primary-foreground: #fff; position: fixed; right: 20px; bottom: 20px; z-index: 40; border-radius: 50%; height: 56px; width: 56px; padding: 0; background: #25d366; color: #fff; }
+.floating-whatsapp:hover { background: #1fb85a; }
 .floating-whatsapp svg { width: 25px; height: 25px; }
 .page-intro { padding: 75px 0 70px; background: var(--secondary); }
 .page-intro h1 { font-size: 48px; margin-bottom: 25px; }
@@ -173,7 +183,7 @@
 @media(max-width:1100px) { .hero-grid { grid-template-columns: 1.25fr .9fr; gap: 35px; } h1 { font-size: 46px; } .hero-description { font-size: 16px; } .care-button { padding: 0 21px; font-size: 14px; } .hero-copy .action-row { gap: 10px; } .portrait-frame { height: 470px; } .credential-row span { padding: 6px 10px; } .header-contact { display: none; } .split-grid { gap: 50px; } }
 @media(max-width:760px) {
  .site-container { width: calc(100% - 40px); } .header-inner { height: 72px; } .brand-name { font-size: 20px; } .desktop-nav { display: none; } .mobile-menu-button { display: inline-flex; } .mobile-nav { display: flex; flex-direction: column; padding: 12px 20px 25px; gap: 4px; border-bottom: 1px solid var(--border); } .mobile-nav > a { padding: 10px 15px; border-radius: 25px; } .mobile-nav .care-button { margin-top: 10px; }
- .home-hero { padding: 36px 0 48px; } .hero-grid { grid-template-columns: 1fr; gap: 38px; } h1 { font-size: 41px; } h2 { font-size: 32px; } .eyebrow { font-size: 10px; letter-spacing: 2.5px; } .hero-copy h1 { margin-bottom: 24px; } .hero-description { font-size: 16px; line-height: 1.7; margin-bottom: 25px; } .hero-copy .action-row { align-items: stretch; } .hero-copy .care-button { padding: 0 22px; } .credential-row { margin-top: 25px; gap: 7px; } .credential-row span { font-size: 10px; padding: 6px 10px; } .portrait-frame { width: min(330px,90%); height: 410px; justify-self: center; padding: 12px; } .section { padding: 58px 0; } .section-title { margin-bottom: 30px; } .three-grid,.first-contact-grid,.two-grid,.split-grid,.location-grid { grid-template-columns: 1fr; gap: 24px; } .pillar-card { border-radius: 24px; padding: 26px; } .split-grid { gap: 38px; } .about-image img,.rounded-photo { height: 440px; } .audience-card img { height: 330px; } .section-intro { font-size: 16px; margin: -10px auto 30px; } .lecture-image { height: 255px; } .lecture-card img { height: auto; aspect-ratio: 1.6; } .contact-band { padding: 60px 0; } .contact-band .action-row { flex-direction: column; } .footer-inner { grid-template-columns: 1fr; gap: 22px; } .page-intro { padding: 52px 0; } .page-intro h1 { font-size: 37px; } .page-intro p:not(.eyebrow) { font-size: 16px; } .floating-whatsapp { right: 16px; bottom: 16px; width: 52px; height: 52px; } .location-visual { padding: 25px; } .faq-item .care-nav-button { font-size: 15px; } .topic-list { gap: 12px 15px; } }
+ .home-hero { padding: 36px 0 48px; } .hero-grid { grid-template-columns: 1fr; gap: 38px; } h1 { font-size: 41px; } h2 { font-size: 32px; } .eyebrow { font-size: 10px; letter-spacing: 2.5px; } .hero-copy h1 { margin-bottom: 24px; } .hero-description { font-size: 16px; line-height: 1.7; margin-bottom: 25px; } .hero-copy .action-row { align-items: stretch; } .hero-copy .care-button { padding: 0 22px; } .credential-row { margin-top: 25px; gap: 7px; } .credential-row span { font-size: 10px; padding: 6px 10px; } .portrait-frame { width: min(330px,90%); height: 410px; justify-self: center; padding: 12px; } .section { padding: 58px 0; } .section-title { margin-bottom: 30px; }  .three-grid,.first-contact-grid,.two-grid,.split-grid,.location-grid,.when-grid { grid-template-columns: 1fr; gap: 18px; } .specialty-icons { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 420px; gap: 14px; } .specialty-icon { border-radius: 20px; } .when-card { padding: 20px; } .pillar-card { border-radius: 24px; padding: 26px; } .split-grid { gap: 38px; } .about-image img,.rounded-photo { height: 440px; } .audience-card img { height: 330px; } .section-intro { font-size: 16px; margin: -10px auto 30px; } .lecture-image { height: 255px; } .lecture-card img { height: auto; aspect-ratio: 1.6; } .contact-band { padding: 60px 0; } .contact-band .action-row { flex-direction: column; } .footer-inner { grid-template-columns: 1fr; gap: 22px; } .page-intro { padding: 52px 0; } .page-intro h1 { font-size: 37px; } .page-intro p:not(.eyebrow) { font-size: 16px; } .floating-whatsapp { right: 16px; bottom: 16px; width: 52px; height: 52px; } .location-visual { padding: 25px; } .faq-item .care-nav-button { font-size: 15px; } .topic-list { gap: 12px 15px; } }
 @media(max-width:760px) {
  .about-image img { height: auto; aspect-ratio: 3 / 4; }
  .rounded-photo { height: auto; aspect-ratio: 1294 / 940; }
