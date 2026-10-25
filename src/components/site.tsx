@@ -90,12 +90,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <Link to="/" className="brand" aria-label="Simone Costa — Início"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link>
         <nav className="desktop-nav" aria-label="Navegação principal">
           {nav.map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}
-          <Button variant="careNav" asChild>{navLink(sectionNav[1])}</Button>
           <Button variant="careNav" asChild>{navLink(sectionNav[2])}</Button>
           <details className="section-menu">
             <summary className="care-nav-button">Mais seções</summary>
             <div className="section-menu-dropdown">
-              {sectionNav.filter((_, index) => index !== 1 && index !== 2).map(item => navLink(item))}
+              {sectionNav.filter((_, index) => index !== 2).map(item => navLink(item))}
               <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer">Instagram @psicologasimone</a>
             </div>
           </details>
@@ -138,7 +137,6 @@ const specialtyIcons = [Baby, UsersRound, Heart, Brain, HandHeart, Sparkles];
 export function Specialties() {
   return <section className="section lavender-band" id="especialidades"><div className="site-container">
     <SectionTitle eyebrow="Especialidades">Áreas de <em>atuação</em></SectionTitle>
-    <p className="section-intro">As informações sobre as especialidades serão incluídas assim que forem enviadas pela Simone.</p>
     <div className="specialty-icons" aria-label="Especialidades em atualização">{specialtyIcons.map((Icon, index) => <span className="specialty-icon" key={index} aria-hidden="true"><Icon /></span>)}</div>
   </div></section>;
 }
