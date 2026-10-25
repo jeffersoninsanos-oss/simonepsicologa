@@ -12,7 +12,7 @@ vi.mock("@tanstack/react-router", () => ({
 
 import { SiteLayout } from "@/components/site";
 
-describe("SiteLayout menus", () => {
+describe("SiteLayout", () => {
   beforeEach(() => {
     vi.stubGlobal(
       "IntersectionObserver",
@@ -26,6 +26,23 @@ describe("SiteLayout menus", () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
+  });
+
+  it("leaves the floating WhatsApp button position to CSS", () => {
+    render(
+      <SiteLayout>
+        <section className="home-hero">
+          <div className="action-row">
+            <a href="#" className="care-button">
+              Agendar pelo WhatsApp
+            </a>
+          </div>
+        </section>
+      </SiteLayout>,
+    );
+    const whatsappLink = screen.getByRole("link", { name: "Abrir conversa no WhatsApp" });
+    expect(whatsappLink).not.toHaveAttribute("style");
+    expect(whatsappLink).toHaveAttribute("href", expect.stringContaining("wa.me/5511943441672"));
   });
 
   it("closes the mobile menu when clicking outside or pressing Escape", () => {
