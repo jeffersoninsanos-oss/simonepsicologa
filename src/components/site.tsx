@@ -113,6 +113,7 @@ export function Reviews() {
     { name: "Renata Azevedo", text: <>Eu tinha muita dificuldade em expressar o que sentia sem me sentir vulnerável demais. A Dra. Simone Costa soube respeitar meu tempo e <strong>hoje consigo me comunicar de forma muito mais assertiva e saudável</strong>.</> },
     { name: "Thiago Martins", text: <>O trabalho da Dra. Simone Costa foi fundamental para o meu autoconhecimento. A forma como ela conduz as reflexões <strong>me fez entender a origem de vários padrões repetitivos que me atrapalhavam</strong>.</> },
     { name: "Larissa Freitas", text: <>A empatia e a precisão das intervenções da Dra. Simone Costa são o grande diferencial. Desde que comecei o acompanhamento, <strong>sinto uma evolução visível nos meus relacionamentos interpessoais e na minha autoestima</strong>.</> },
+    { name: "Carolina Peixoto", text: <>Iniciar o acompanhamento com a Dra. Simone Costa foi uma das melhores decisões que tomei. A sensibilidade dela para captar detalhes faz toda a diferença: <strong>fui me desfazendo de pesos que nem percebia que carregava</strong> e hoje tenho muito mais clareza para tomar minhas próprias decisões.</> },
   ];
   return <section className="section" id="avaliacoes"><div className="site-container">
     <SectionTitle eyebrow="Avaliações">Experiências de quem confiou no <em>cuidado</em></SectionTitle>
