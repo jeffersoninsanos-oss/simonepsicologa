@@ -93,7 +93,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <Button variant="careNav" asChild>{navLink(sectionNav[2])}</Button>
           <details className="section-menu">
             <summary className="care-nav-button">Mais seções</summary>
-            <div className="section-menu-dropdown">{sectionNav.filter((_, index) => index !== 2).map(item => navLink(item))}</div>
+            <div className="section-menu-dropdown">
+              {sectionNav.filter((_, index) => index !== 2).map(item => navLink(item))}
+              <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer">Instagram @psicologasimone</a>
+            </div>
           </details>
         </nav>
         <div className="header-contact"><WhatsApp /></div>
@@ -102,6 +105,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       {open && <nav className="mobile-nav" aria-label="Navegação no celular">
         {nav.map(n => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} data-active={pathname === n.to}>{n.label}</Link>)}
         {sectionNav.map(navLink)}
+        <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>Instagram @psicologasimone</a>
         <WhatsApp />
       </nav>}
     </header>
