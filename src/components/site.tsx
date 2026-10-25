@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, Award, Baby, Brain, Building2, CalendarDays, Check, ChevronDown, Ear, HandHeart, Heart, HeartHandshake, Laptop, Leaf, MapPin, Menu, MessageCircle, Phone, Sparkles, Sprout, UsersRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import portrait from "@/assets/portrait.jpg.asset.json";
@@ -60,7 +60,40 @@ function WhatsAppMark() {
 }
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
+  const sectionMenuRef = useRef<HTMLDetailsElement>(null);
   const pathname = useRouterState({ select: s => s.location.pathname });
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+
+      if (sectionMenuRef.current?.open && !sectionMenuRef.current.contains(target)) {
+        sectionMenuRef.current.open = false;
+      }
+      if (
+        open &&
+        !mobileMenuButtonRef.current?.contains(target) &&
+        !mobileNavRef.current?.contains(target)
+      ) {
+        setOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (sectionMenuRef.current) sectionMenuRef.current.open = false;
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
   useEffect(() => {
     document.documentElement.classList.add("js");
     const onScroll = () => document.querySelector(".site-header")?.classList.toggle("scrolled", window.scrollY > 12);
@@ -89,7 +122,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     { hash: "onde-atendo", label: "Onde atendo" },
     { hash: "duvidas-frequentes", label: "Dúvidas frequentes" },
   ] as const;
-  const navLink = (item: (typeof sectionNav)[number]) => <Link key={item.hash} to="/" hash={item.hash} onClick={() => setOpen(false)}>{item.label}</Link>;
+  const navLink = (item: (typeof sectionNav)[number]) => <Link key={item.hash} to="/" hash={item.hash} onClick={() => {
+    setOpen(false);
+    if (sectionMenuRef.current) sectionMenuRef.current.open = false;
+  }}>{item.label}</Link>;
   return <>
     <script type="application/ld+json">{JSON.stringify(professionalService)}</script>
     <header className="site-header">
@@ -98,18 +134,20 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <nav className="desktop-nav" aria-label="Navegação principal">
           {nav.map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}
           <Button variant="careNav" asChild>{navLink(sectionNav[2])}</Button>
-          <details className="section-menu">
+          <details className="section-menu" ref={sectionMenuRef}>
             <summary className="care-nav-button">Mais seções</summary>
             <div className="section-menu-dropdown">
               {sectionNav.filter((_, index) => index !== 2).map(item => navLink(item))}
-              <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer">Instagram @psicologasimone</a>
+              <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer" onClick={() => {
+                if (sectionMenuRef.current) sectionMenuRef.current.open = false;
+              }}>Instagram @psicologasimone</a>
             </div>
           </details>
         </nav>
         <div className="header-contact"><WhatsApp /></div>
-        <Button variant="careNav" size="icon" className="mobile-menu-button" aria-label={open ? "Fechar menu" : "Abrir menu"} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
+        <Button ref={mobileMenuButtonRef} variant="careNav" size="icon" className="mobile-menu-button" aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
       </div>
-      {open && <nav className="mobile-nav" aria-label="Navegação no celular">
+      {open && <nav id="mobile-navigation" ref={mobileNavRef} className="mobile-nav" aria-label="Navegação no celular">
         {nav.map(n => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} data-active={pathname === n.to}>{n.label}</Link>)}
         {sectionNav.map(navLink)}
         <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>Instagram @psicologasimone</a>
