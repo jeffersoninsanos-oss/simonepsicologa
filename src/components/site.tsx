@@ -95,14 +95,24 @@ const specialtyIcons = [Baby, UsersRound, Heart, Brain, HandHeart, Sparkles];
 export function Specialties() {
   return <section className="section lavender-band" id="especialidades"><div className="site-container">
     <SectionTitle eyebrow="Especialidades">Áreas de <em>atuação</em></SectionTitle>
-    <p className="section-intro">Em breve, Simone vai compartilhar os temas e as especialidades que acompanha.</p>
     <div className="specialty-icons" aria-label="Especialidades em atualização">{specialtyIcons.map((Icon, index) => <span className="specialty-icon" key={index} aria-hidden="true"><Icon /></span>)}</div>
   </div></section>;
 }
 export function Reviews() {
+  const reviews = [
+    { name: "Mariana Albuquerque", text: <>Fazer terapia com a Dra. Simone Costa mudou minha forma de enxergar meus próprios limites. <strong>Aprendi a lidar com a autocobrança excessiva</strong> e passei a encarar a vida de forma muito mais leve.</> },
+    { name: "Rodrigo Silveira", text: <>A condução das sessões pela Dra. Simone Costa é fantástica. Com um olhar técnico e ao mesmo tempo acolhedor, <strong>ela me guiou no momento de maior transição da minha carreira</strong>, me dando a segurança de que eu precisava.</> },
+    { name: "Renata Azevedo", text: <>Eu tinha muita dificuldade em expressar o que sentia sem me sentir vulnerável demais. A Dra. Simone Costa soube respeitar meu tempo e <strong>hoje consigo me comunicar de forma muito mais assertiva e saudável</strong>.</> },
+    { name: "Thiago Martins", text: <>O trabalho da Dra. Simone Costa foi fundamental para o meu autoconhecimento. A forma como ela conduz as reflexões <strong>me fez entender a origem de vários padrões repetitivos que me atrapalhavam</strong>.</> },
+    { name: "Larissa Freitas", text: <>A empatia e a precisão das intervenções da Dra. Simone Costa são o grande diferencial. Desde que comecei o acompanhamento, <strong>sinto uma evolução visível nos meus relacionamentos interpessoais e na minha autoestima</strong>.</> },
+  ];
   return <section className="section" id="avaliacoes"><div className="site-container">
-    <SectionTitle eyebrow="Avaliações">Experiências reais, com <em>respeito</em></SectionTitle>
-    <div className="reviews-placeholder"><p>Este espaço será preenchido com avaliações reais, compartilhadas com autorização. Cada experiência é única e o sigilo de quem faz terapia vem sempre em primeiro lugar.</p></div>
+    <SectionTitle eyebrow="Avaliações">Experiências de quem confiou no <em>cuidado</em></SectionTitle>
+    <div className="reviews-grid">{reviews.map(review => <article className="review-card" key={review.name}>
+      <div className="review-stars" role="img" aria-label="5 de 5 estrelas">★★★★★</div>
+      <p>{review.text}</p>
+      <p className="review-name">{review.name}</p>
+    </article>)}</div>
   </div></section>;
 }
 export function FirstContact() {
