@@ -75,27 +75,57 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     return () => io.disconnect();
   }, [pathname]);
   const nav = [{ to: "/", label: "Início" }, { to: "/sobre", label: "Sobre mim" }, { to: "/atendimento", label: "Atendimento" }, { to: "/palestras", label: "Palestras" }, { to: "/contato", label: "Contato" }] as const;
-  return <><script type="application/ld+json">{JSON.stringify(professionalService)}</script><header className="site-header"><div className="site-container header-inner"><Link to="/" className="brand" aria-label="Simone Costa — Início"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link><nav className="desktop-nav" aria-label="Navegação principal">{nav.map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}</nav><div className="header-contact"><WhatsApp /></div><Button variant="careNav" size="icon" className="mobile-menu-button" aria-label={open ? "Fechar menu" : "Abrir menu"} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button></div>{open && <nav className="mobile-nav" aria-label="Navegação no celular">{nav.map(n => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} data-active={pathname === n.to}>{n.label}</Link>)}<WhatsApp /></nav>}</header><main>{children}</main><footer className="site-footer"><div className="site-container footer-inner"><Link to="/" className="brand"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link><p>Cuidado, escuta e transformação.<br />Moema, São Paulo · Atendimento online</p><div className="footer-links">{nav.slice(1).map(n => <Link key={n.to} to={n.to}>{n.label}</Link>)}</div></div><div className="site-container footer-bottom">© {new Date().getFullYear()} Simone Costa. Todos os direitos reservados.</div></footer><Button asChild variant="care" className="floating-whatsapp" aria-label="Abrir conversa no WhatsApp"><a href={whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppMark /></a></Button></>;
+  const sectionNav = [
+    { hash: "quando-procurar", label: "Quando procurar" },
+    { hash: "especialidades", label: "Especialidades" },
+    { hash: "avaliacoes", label: "Depoimentos" },
+    { hash: "onde-atendo", label: "Onde atendo" },
+    { hash: "duvidas-frequentes", label: "Dúvidas frequentes" },
+  ] as const;
+  const navLink = (item: (typeof sectionNav)[number]) => <Link key={item.hash} to="/" hash={item.hash} onClick={() => setOpen(false)}>{item.label}</Link>;
+  return <>
+    <script type="application/ld+json">{JSON.stringify(professionalService)}</script>
+    <header className="site-header">
+      <div className="site-container header-inner">
+        <Link to="/" className="brand" aria-label="Simone Costa — Início"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link>
+        <nav className="desktop-nav" aria-label="Navegação principal">
+          {nav.map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}
+          <Button variant="careNav" asChild>{navLink(sectionNav[2])}</Button>
+          <details className="section-menu">
+            <summary className="care-nav-button">Mais seções</summary>
+            <div className="section-menu-dropdown">{sectionNav.filter((_, index) => index !== 2).map(item => navLink(item))}</div>
+          </details>
+        </nav>
+        <div className="header-contact"><WhatsApp /></div>
+        <Button variant="careNav" size="icon" className="mobile-menu-button" aria-label={open ? "Fechar menu" : "Abrir menu"} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
+      </div>
+      {open && <nav className="mobile-nav" aria-label="Navegação no celular">
+        {nav.map(n => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} data-active={pathname === n.to}>{n.label}</Link>)}
+        {sectionNav.map(navLink)}
+        <WhatsApp />
+      </nav>}
+    </header>
+    <main>{children}</main>
+    <footer className="site-footer"><div className="site-container footer-inner">
+      <Link to="/" className="brand"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link>
+      <p>Cuidado, escuta e transformação.<br />Moema, São Paulo · Atendimento online</p>
+      <div className="footer-links">{nav.slice(1).map(n => <Link key={n.to} to={n.to}>{n.label}</Link>)}</div>
+    </div><div className="site-container footer-bottom">© {new Date().getFullYear()} Simone Costa. Todos os direitos reservados.</div></footer>
+    <Button asChild variant="care" className="floating-whatsapp" aria-label="Abrir conversa no WhatsApp"><a href={whatsapp} target="_blank" rel="noopener noreferrer"><WhatsAppMark /></a></Button>
+  </>;
 }
 export function SectionTitle({ eyebrow, children, center = true }: { eyebrow: string; children: ReactNode; center?: boolean }) { return <div className={`section-title ${center ? "center" : ""}`}><p className="eyebrow">{eyebrow}</p><h2>{children}</h2></div>; }
 export function Hero() { return <section className="home-hero"><div className="site-container hero-grid"><div className="hero-copy"><p className="eyebrow">Psicóloga clínica · CRP 06/85827</p><h1>Um espaço de<br />cuidado para a<br />sua <em>saúde mental</em></h1><p className="hero-description">Atendo crianças, adolescentes, adultos e idosos com escuta qualificada, experiência prática e olhar humano e acolhedor.</p><div className="action-row"><WhatsApp>Agendar pelo WhatsApp</WhatsApp><Button asChild variant="careOutline"><Link to="/atendimento">Conhecer o atendimento <ArrowRight /></Link></Button></div><div className="credential-row"><span><Award />15 anos de clínica</span><span><MapPin />Moema · Espaço Shambala</span><span><Laptop />Atendimento online</span></div></div><div className="portrait-frame"><img src={assetUrl(portrait.url)} alt="Simone Costa, psicóloga clínica" fetchPriority="high" /><span className="portrait-caption">CRP 06/85827</span></div></div></section>; }
-export function HomeSectionNav() {
-  return <nav className="home-section-nav site-container" aria-label="Seções da página inicial">
-    <a href="#quando-procurar">Quando procurar</a>
-    <a href="#avaliacoes">Avaliações</a>
-    <a href="#especialidades">Especialidades</a>
-  </nav>;
-}
 const reasonsToSeekSupport = [
-  { icon: Brain, text: "A ansiedade, a preocupação ou o estresse estão dificultando sua rotina." },
-  { icon: Heart, text: "Você está atravessando uma perda, mudança ou fase emocionalmente difícil." },
-  { icon: HandHeart, text: "Questões nos relacionamentos ou na comunicação estão pesando para você." },
-  { icon: Sparkles, text: "Você quer compreender melhor seus sentimentos e cuidar da sua autoestima." },
+  { icon: Brain, text: "A ansiedade, a preocupação ou o estresse têm ocupado espaço demais no seu dia a dia." },
+  { icon: Heart, text: "Uma mudança, perda ou fase difícil tem sido complicada de atravessar." },
+  { icon: HandHeart, text: "Conflitos nos relacionamentos estão afetando seu bem-estar." },
+  { icon: Sparkles, text: "Você quer se conhecer melhor e encontrar novas formas de lidar com o que sente." },
 ];
 export function WhenToSeek() {
   return <section className="section" id="quando-procurar"><div className="site-container">
-    <SectionTitle eyebrow="Quando procurar">Quando procurar uma <em>psicóloga?</em></SectionTitle>
-    <p className="section-intro">A terapia pode oferecer acolhimento e reflexão em diferentes momentos. Você não precisa esperar chegar ao limite para buscar apoio.</p>
+    <SectionTitle eyebrow="Quando procurar" >Você não precisa passar por tudo <em>sozinho</em></SectionTitle>
+    <p className="section-intro">A terapia pode ser um espaço de acolhimento e reflexão em diferentes momentos da vida. Não é preciso esperar chegar ao limite para buscar apoio.</p>
     <div className="when-grid">{reasonsToSeekSupport.map(item => <article className="when-card" key={item.text}><span className="pillar-icon"><item.icon aria-hidden="true" /></span><p>{item.text}</p></article>)}</div>
   </div></section>;
 }
@@ -103,7 +133,7 @@ const specialtyIcons = [Baby, UsersRound, Heart, Brain, HandHeart, Sparkles];
 export function Specialties() {
   return <section className="section lavender-band" id="especialidades"><div className="site-container">
     <SectionTitle eyebrow="Especialidades">Áreas de <em>atuação</em></SectionTitle>
-    <div className="specialty-icons" aria-label="Ícones das especialidades">{specialtyIcons.map((Icon, index) => <span className="specialty-icon" key={index} aria-hidden="true"><Icon /></span>)}</div>
+    <div className="specialty-icons" aria-label="Especialidades em atualização">{specialtyIcons.map((Icon, index) => <span className="specialty-icon" key={index} aria-hidden="true"><Icon /></span>)}</div>
   </div></section>;
 }
 export function Reviews() {
@@ -185,6 +215,6 @@ export function Location() {
   </div></section>;
 }
 const faqs = [{ q: "Como funciona o primeiro contato?", a: "O primeiro contato é pelo WhatsApp. Podemos conversar sobre o que você está buscando, esclarecer suas dúvidas e combinar o agendamento." }, { q: "Qual é a frequência das sessões?", a: "A frequência é combinada de acordo com as necessidades de cada pessoa, durante o atendimento." }, { q: "O que eu falo fica em sigilo?", a: "Sim. O atendimento psicológico respeita o sigilo profissional, conforme o Código de Ética da Psicologia." }, { q: "Você atende crianças?", a: "Sim. Atendo crianças por meio de recursos lúdicos e do brincar, respeitando suas necessidades e sua fase de desenvolvimento." }, { q: "O atendimento online funciona igual?", a: "O atendimento online também oferece escuta qualificada e sigilo. As sessões acontecem por vídeo, em um ambiente reservado." }];
-export function FAQ() { const [opened, setOpened] = useState<number | null>(null); return <section className="section lavender-band"><div className="site-container faq-container"><SectionTitle eyebrow="Dúvidas frequentes">Perguntas <em>frequentes</em></SectionTitle><div className="faq-list">{faqs.map((f, i) => <div className="faq-item" key={f.q}><Button variant="careNav" onClick={() => setOpened(opened === i ? null : i)} aria-expanded={opened === i} aria-controls={`faq-${i}`}><span>{f.q}</span><ChevronDown className={opened === i ? "rotated" : ""} /></Button>{opened === i && <p id={`faq-${i}`}>{f.a}</p>}</div>)}</div></div></section>; }
+export function FAQ() { const [opened, setOpened] = useState<number | null>(null); return <section className="section lavender-band" id="duvidas-frequentes"><div className="site-container faq-container"><SectionTitle eyebrow="Dúvidas frequentes">Perguntas <em>frequentes</em></SectionTitle><div className="faq-list">{faqs.map((f, i) => <div className="faq-item" key={f.q}><Button variant="careNav" onClick={() => setOpened(opened === i ? null : i)} aria-expanded={opened === i} aria-controls={`faq-${i}`}><span>{f.q}</span><ChevronDown className={opened === i ? "rotated" : ""} /></Button>{opened === i && <p id={`faq-${i}`}>{f.a}</p>}</div>)}</div></div></section>; }
 export function ContactCTA() { return <section className="contact-band"><div className="site-container center"><p className="eyebrow">Vamos conversar?</p><h2>Me conte o que você está <em>buscando</em></h2><p>Será um prazer acompanhar você, sua família ou a sua organização nesse caminho.</p><div className="action-row justify-center"><WhatsApp /><a className="phone-link" href="tel:+5511943441672"><Phone size={17} />(11) 94344-1672</a></div></div></section>; }
 export function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: ReactNode; description: string }) { return <section className="page-intro"><div className="site-container center"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p>{description}</p></div></section>; }
