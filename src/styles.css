@@ -184,9 +184,9 @@
 .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 24px; color: var(--muted-foreground); font-size: 11px; }
 .floating-whatsapp { --primary: #25d366; --primary-foreground: #fff; position: fixed; right: 20px; bottom: 20px; z-index: 40; border-radius: 50%; height: 60px; width: 60px; padding: 0; background: #25d366; color: #fff; box-shadow: 0 1px 6px rgb(0 0 0 / 6%), 0 2px 32px rgb(0 0 0 / 16%); }
 .floating-whatsapp:hover { background: #1fb85a; }
-.floating-whatsapp .whatsapp-mark { position: relative; display: grid; place-items: center; width: 32px; height: 32px; }
-.floating-whatsapp .whatsapp-mark svg:first-child { width: 32px; height: 32px; stroke-width: 2.3; }
-.floating-whatsapp .whatsapp-mark svg:last-child { position: absolute; width: 15px; height: 15px; stroke-width: 2.7; transform: rotate(-35deg); }
+.floating-whatsapp .whatsapp-mark { display: grid; place-items: center; width: 36px; height: 36px; }
+.floating-whatsapp .whatsapp-mark svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.floating-whatsapp .whatsapp-mark svg path:last-child { fill: currentColor; stroke: none; }
 .section[id] { scroll-margin-top: 160px; }
 .page-intro { padding: 75px 0 70px; background: var(--secondary); }
 .page-intro h1 { font-size: 48px; margin-bottom: 25px; }

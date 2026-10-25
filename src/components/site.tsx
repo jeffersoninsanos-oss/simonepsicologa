@@ -50,7 +50,14 @@ const professionalService = {
   areaServed: { "@type": "City", name: "São Paulo" },
 };
 export function WhatsApp({ children = "Falar no WhatsApp" }: { children?: ReactNode }) { return <Button asChild variant="care"><a href={whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} />{children}</a></Button>; }
-function WhatsAppMark() { return <span className="whatsapp-mark" aria-hidden="true"><MessageCircle /><Phone /></span>; }
+function WhatsAppMark() {
+  return <span className="whatsapp-mark" aria-hidden="true">
+    <svg viewBox="0 0 32 32" focusable="false">
+      <path d="M16 3.5a12.1 12.1 0 0 0-10.3 18.4L4.4 28l6.3-1.7A12.1 12.1 0 1 0 16 3.5Z" />
+      <path d="M11.1 8.6c-.4-.4-1-.4-1.4-.1l-1.1.9c-.6.5-.8 1.3-.5 2.1 1.4 3.8 4.4 6.8 8.2 8.2.8.3 1.6.1 2.1-.5l.9-1.1c.3-.4.3-1-.1-1.4l-2.1-1.8c-.4-.3-.9-.3-1.3 0l-.9.7c-1.5-.7-2.7-1.9-3.4-3.4l.7-.9c.3-.4.3-.9 0-1.3Z" />
+    </svg>
+  </span>;
+}
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: s => s.location.pathname });
