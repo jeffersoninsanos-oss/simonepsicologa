@@ -243,7 +243,7 @@ export function Location() {
       <div className="location-info">
         <span className="pillar-icon"><MapPin /></span>
         <p>Rua Canário, 384 – Moema<br />São Paulo – SP</p>
-        <p className="small-copy">O Espaço Shambala fica próximo à estação Moema da Linha 5–Lilás do metrô.</p>
+        <p className="small-copy">O Espaço de atendimento fica próximo à estação Moema da Linha 5–Lilás do metrô.</p>
         <p className="small-copy">O endereço completo é enviado junto com a confirmação do agendamento.</p>
         <div className="action-row">
           <Button asChild variant="careOutline"><a href={map} target="_blank" rel="noopener noreferrer">Ver no mapa <ArrowRight /></a></Button>
