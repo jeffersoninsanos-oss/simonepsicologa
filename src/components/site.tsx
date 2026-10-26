@@ -61,12 +61,16 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileNavRef = useRef<HTMLElement>(null);
+  const sectionMenuRef = useRef<HTMLDetailsElement>(null);
   const pathname = useRouterState({ select: s => s.location.pathname });
   useEffect(() => {
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target;
       if (!(target instanceof Node)) return;
 
+      if (sectionMenuRef.current?.open && !sectionMenuRef.current.contains(target)) {
+        sectionMenuRef.current.open = false;
+      }
       if (
         open &&
         !mobileMenuButtonRef.current?.contains(target) &&
@@ -77,6 +81,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     };
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        if (sectionMenuRef.current) sectionMenuRef.current.open = false;
         setOpen(false);
       }
     };
@@ -118,6 +123,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   ] as const;
   const navLink = (item: (typeof sectionNav)[number]) => <Link key={item.hash} to="/" hash={item.hash} onClick={() => {
     setOpen(false);
+    if (sectionMenuRef.current) sectionMenuRef.current.open = false;
   }}>{item.label}</Link>;
   return <>
     <script type="application/ld+json">{JSON.stringify(professionalService)}</script>
@@ -125,13 +131,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <div className="site-container header-inner">
         <Link to="/" className="brand" aria-label="Simone Costa — Início"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link>
         <nav className="desktop-nav" aria-label="Navegação principal">
-          <div className="desktop-nav-primary">
-            {nav.map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}
-          </div>
-          <div className="desktop-nav-sections" aria-label="Seções da página inicial">
-            {sectionNav.map(item => <Link key={item.hash} to="/" hash={item.hash}>{item.label}</Link>)}
-            <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          </div>
+          {nav.slice(0, 4).map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}
+          <Button variant="careNav" asChild>{navLink(sectionNav[2])}</Button>
+          {nav.slice(4).map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}
+          <details className="section-menu" ref={sectionMenuRef}>
+            <summary className="care-nav-button">Mais seções</summary>
+            <div className="section-menu-dropdown">
+              {sectionNav.filter((_, index) => index !== 2).map(item => navLink(item))}
+              <a href="https://www.instagram.com/psicologasimone/" target="_blank" rel="noopener noreferrer" onClick={() => {
+                if (sectionMenuRef.current) sectionMenuRef.current.open = false;
+              }}>Instagram @psicologasimone</a>
+            </div>
+          </details>
         </nav>
         <Button ref={mobileMenuButtonRef} variant="careNav" size="icon" className="mobile-menu-button" aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
       </div>
