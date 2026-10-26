@@ -52,7 +52,7 @@
 .brand-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--button-gradient); color: var(--primary-foreground); }
 .brand-name { display: block; font: 21px 'Playfair Display', Georgia, serif; line-height: 1.3; }
 .brand-subtitle { display: block; color: var(--primary); font-size: 9px; letter-spacing: 4px; margin-top: 4px; }
-.desktop-nav { display: flex; align-items: center; gap: 5px; }
+.desktop-nav { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 5px; }
 .care-nav-button { color: var(--muted-foreground); background: transparent; border-radius: 30px; box-shadow: none; padding: 10px 14px; height: auto; font-size: 14px; font-weight: 400; }
 .desktop-nav .care-nav-button { padding: 10px 11px; border: 1px solid var(--border); background: var(--card); color: var(--foreground); font-size: 13px; font-weight: 500; white-space: nowrap; transition: background .2s, color .2s, border-color .2s, transform .2s; }
 .desktop-nav .care-nav-button:hover,.section-menu[open] > summary { border-color: oklch(.78 .075 312); background: var(--secondary); color: var(--primary); }
@@ -69,7 +69,6 @@
 .care-button:hover { transform: translateY(-2px); box-shadow: var(--care-shadow); }
 .care-button-primary { background: var(--button-gradient); color: var(--primary-foreground); border: 1px solid transparent; }
 .care-button-outline { background: transparent; border: 1px solid oklch(.78 .075 312); color: var(--primary); }
-.header-contact .care-button { height: 36px; font-size: 14px; padding: 0 17px; }
 .mobile-menu-button,.mobile-nav { display: none; }
 .home-hero { padding: 40px 0 79px; }
 .hero-grid { display: grid; grid-template-columns: 565px 416px; justify-content: space-between; align-items: center; gap: 50px; }
@@ -184,9 +183,10 @@
 .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 24px; color: var(--muted-foreground); font-size: 11px; }
 .floating-whatsapp { --primary: #25d366; --primary-foreground: #fff; position: fixed; width: 60px; height: 60px; right: 20px; top: 88vh; bottom: auto; left: auto; z-index: 9999; transform: translateY(-50%); border-radius: 50%; padding: 0; background: #25d366; color: #fff; box-shadow: 2px 2px 10px rgb(0 0 0 / 30%); text-decoration: none; transition: transform .3s ease, background-color .3s ease; }
 .floating-whatsapp.care-button:hover { transform: translateY(-50%) scale(1.1); background: #128c7e; }
+.whatsapp-mark { display: inline-grid; flex: 0 0 18px; place-items: center; width: 18px; height: 18px; }
+.whatsapp-mark svg { display: block; width: 100%; height: 100%; fill: currentColor; }
 .floating-whatsapp .whatsapp-mark { display: grid; place-items: center; width: 36px; height: 36px; }
-.floating-whatsapp .whatsapp-mark svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.floating-whatsapp .whatsapp-mark svg path:last-child { fill: currentColor; stroke: none; }
+.floating-whatsapp .whatsapp-mark svg { width: 36px; height: 36px; }
 .section[id] { scroll-margin-top: 160px; }
 .page-intro { padding: 75px 0 70px; background: var(--secondary); }
 .page-intro h1 { font-size: 48px; margin-bottom: 25px; }
@@ -197,7 +197,7 @@
  .lecture-image:hover { box-shadow: var(--photo-shadow-hover); }
 }
 @media(min-width:1600px) { .home-hero { padding-bottom: 79px; } }
-@media(max-width:1100px) { .hero-grid { grid-template-columns: 1.25fr .9fr; gap: 35px; } h1 { font-size: 46px; } .hero-description { font-size: 16px; } .care-button { padding: 0 21px; font-size: 14px; } .hero-copy .action-row { gap: 10px; } .portrait-frame { height: 470px; } .credential-row span { padding: 6px 10px; } .header-contact { display: none; } .split-grid { gap: 50px; } }
+@media(max-width:1100px) { .hero-grid { grid-template-columns: 1.25fr .9fr; gap: 35px; } h1 { font-size: 46px; } .hero-description { font-size: 16px; } .care-button { padding: 0 21px; font-size: 14px; } .hero-copy .action-row { gap: 10px; } .portrait-frame { height: 470px; } .credential-row span { padding: 6px 10px; } .split-grid { gap: 50px; } }
 @media(max-width:900px) { .header-inner { height: 104px; } .official-logo { width: 108px; height: auto; } .desktop-nav { display: none; } .mobile-menu-button { display: inline-flex; } .mobile-nav { display: flex; flex-direction: column; padding: 12px 20px 25px; gap: 6px; border-bottom: 1px solid var(--border); background: var(--background); } .mobile-nav > a:not(.care-button) { padding: 11px 15px; border: 1px solid var(--border); border-radius: 25px; background: var(--card); color: var(--foreground); font-size: 15px; font-weight: 500; } .mobile-nav > a:not(.care-button):hover { background: var(--secondary); color: var(--primary); } .mobile-nav .care-button { margin-top: 10px; } }
 @media(max-width:760px) {
  .site-container { width: calc(100% - 40px); } .header-inner { height: 72px; } .brand-name { font-size: 20px; } .desktop-nav { display: none; } .mobile-menu-button { display: inline-flex; } .mobile-nav { display: flex; flex-direction: column; padding: 12px 20px 25px; gap: 6px; border-bottom: 1px solid var(--border); background: var(--background); } .mobile-nav > a:not(.care-button) { padding: 11px 15px; border: 1px solid var(--border); border-radius: 25px; background: var(--card); color: var(--foreground); font-size: 15px; font-weight: 500; } .mobile-nav > a:not(.care-button):hover { background: var(--secondary); color: var(--primary); } .mobile-nav .care-button { margin-top: 10px; }

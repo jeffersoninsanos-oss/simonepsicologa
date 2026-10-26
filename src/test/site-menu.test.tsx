@@ -45,6 +45,28 @@ describe("SiteLayout", () => {
     expect(whatsappLink).toHaveAttribute("href", expect.stringContaining("wa.me/5511943441672"));
   });
 
+  it("orders the desktop navigation by page flow without a header WhatsApp CTA", () => {
+    const { container } = render(
+      <SiteLayout>
+        <div>Page content</div>
+      </SiteLayout>,
+    );
+    const desktopNav = container.querySelector(".desktop-nav");
+    const firstLinks = Array.from(desktopNav!.querySelectorAll("a"))
+      .slice(0, 6)
+      .map(link => link.textContent);
+
+    expect(firstLinks).toEqual([
+      "Início",
+      "Sobre mim",
+      "Atendimento",
+      "Palestras",
+      "Depoimentos",
+      "Contato",
+    ]);
+    expect(container.querySelector(".header-contact")).toBeNull();
+  });
+
   it("closes the mobile menu when clicking outside or pressing Escape", () => {
     render(
       <SiteLayout>
