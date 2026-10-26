@@ -45,25 +45,29 @@ describe("SiteLayout", () => {
     expect(whatsappLink).toHaveAttribute("href", expect.stringContaining("wa.me/5511943441672"));
   });
 
-  it("orders the desktop navigation by page flow without a header WhatsApp CTA", () => {
+  it("shows desktop page and section links in order without a dropdown", () => {
     const { container } = render(
       <SiteLayout>
         <div>Page content</div>
       </SiteLayout>,
     );
     const desktopNav = container.querySelector(".desktop-nav");
-    const firstLinks = Array.from(desktopNav!.querySelectorAll("a"))
-      .slice(0, 6)
-      .map(link => link.textContent);
+    const links = Array.from(desktopNav!.querySelectorAll("a")).map(link => link.textContent);
 
-    expect(firstLinks).toEqual([
+    expect(links).toEqual([
       "Início",
       "Sobre mim",
       "Atendimento",
       "Palestras",
-      "Depoimentos",
       "Contato",
+      "Quando procurar",
+      "Especialidades",
+      "Depoimentos",
+      "Onde atendo",
+      "Dúvidas frequentes",
+      "Instagram",
     ]);
+    expect(desktopNav!.querySelector("details")).toBeNull();
     expect(container.querySelector(".header-contact")).toBeNull();
   });
 
@@ -89,21 +93,4 @@ describe("SiteLayout", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("closes the desktop sections menu when clicking outside or selecting an item", () => {
-    const { container } = render(
-      <SiteLayout>
-        <div>Page content</div>
-      </SiteLayout>,
-    );
-    const sectionMenu = container.querySelector("details.section-menu");
-
-    expect(sectionMenu).not.toBeNull();
-    sectionMenu!.open = true;
-    fireEvent.pointerDown(screen.getByText("Page content"));
-    expect(sectionMenu).not.toHaveAttribute("open");
-
-    sectionMenu!.open = true;
-    fireEvent.click(screen.getByRole("link", { name: "Instagram @psicologasimone" }));
-    expect(sectionMenu).not.toHaveAttribute("open");
-  });
 });
