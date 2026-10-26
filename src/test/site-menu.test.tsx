@@ -64,6 +64,7 @@ describe("SiteLayout", () => {
       "Depoimentos",
       "Contato",
     ]);
+    expect(desktopNav!.querySelector("a[data-active=true]")).toHaveTextContent("Início");
     expect(desktopNav!.querySelector("details.section-menu")).not.toBeNull();
     expect(container.querySelector(".header-contact")).toBeNull();
   });
