@@ -10,7 +10,7 @@ vi.mock("@tanstack/react-router", () => ({
     select({ location: { pathname: "/" } }),
 }));
 
-import { SiteLayout } from "@/components/site";
+import { Reviews, SiteLayout } from "@/components/site";
 
 describe("SiteLayout", () => {
   beforeEach(() => {
@@ -67,6 +67,20 @@ describe("SiteLayout", () => {
     expect(desktopNav!.querySelector("a[data-active=true]")).toHaveTextContent("Início");
     expect(desktopNav!.querySelector("details.section-menu")).not.toBeNull();
     expect(container.querySelector(".header-contact")).toBeNull();
+  });
+
+  it("uses the same label for the testimonials link and its destination", () => {
+    const { container } = render(
+      <SiteLayout>
+        <Reviews />
+      </SiteLayout>,
+    );
+
+    expect(screen.getByRole("link", { name: "Depoimentos" })).toHaveAttribute(
+      "href",
+      "/#avaliacoes",
+    );
+    expect(container.querySelector("#avaliacoes .eyebrow")).toHaveTextContent("Depoimentos");
   });
 
   it("closes the mobile menu when clicking outside or pressing Escape", () => {

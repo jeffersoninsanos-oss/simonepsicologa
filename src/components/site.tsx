@@ -195,7 +195,7 @@ export function Reviews() {
     { name: "Carolina Peixoto", text: <>Iniciar o acompanhamento com a Dra. Simone Costa foi uma das melhores decisões que tomei. A sensibilidade dela para captar detalhes faz toda a diferença: <strong>fui me desfazendo de pesos que nem percebia que carregava</strong> e hoje tenho muito mais clareza para tomar minhas próprias decisões.</> },
   ];
   return <section className="section" id="avaliacoes"><div className="site-container">
-    <SectionTitle eyebrow="Avaliações">Experiências de quem confiou no <em>cuidado</em></SectionTitle>
+    <SectionTitle eyebrow="Depoimentos">Experiências de quem confiou no <em>cuidado</em></SectionTitle>
     <div className="reviews-grid">{reviews.map(review => <article className="review-card" key={review.name}>
       <div className="review-stars" role="img" aria-label="5 de 5 estrelas">★★★★★</div>
       <p>{review.text}</p>
