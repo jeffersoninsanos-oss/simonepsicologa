@@ -17,7 +17,7 @@ export const photos = { portrait, about, children, teens, adults, lecture, play 
 export const whatsapp = "https://wa.me/5511943441672?text=Ol%C3%A1%2C%20Simone!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20conversa.";
 const map = "https://www.google.com/maps/search/?api=1&query=Rua%20Can%C3%A1rio%2C%20384%20-%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP";
 const directions = "https://www.google.com/maps/dir/?api=1&destination=Rua%20Can%C3%A1rio%2C%20384%20-%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP";
-const siteUrl = "https://psicologasimonecosta.com.br";
+const siteUrl = "https://www.psicologasimonecosta.com.br";
 export function pageHead(title: string, description: string, path = "/") {
   const canonical = `${siteUrl}${path === "/" ? "/" : `${path}/`}`;
   return {
