@@ -10,7 +10,20 @@ vi.mock("@tanstack/react-router", () => ({
     select({ location: { pathname: "/" } }),
 }));
 
-import { Reviews, SiteLayout } from "@/components/site";
+import { Reviews, SiteLayout, WhenToSeek } from "@/components/site";
+
+describe("WhenToSeek", () => {
+  it("explains when to seek therapy and what the therapeutic process offers", () => {
+    const { container } = render(<WhenToSeek />);
+
+    expect(container.querySelectorAll(".when-card")).toHaveLength(10);
+    expect(screen.getByRole("heading", { name: "Quando buscar terapia?" })).toBeInTheDocument();
+    expect(screen.getByText(/mais de duas semanas/)).toBeInTheDocument();
+    expect(screen.getByText(/burnout/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "O que é terapia?" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Qual o papel do psicólogo?" })).toBeInTheDocument();
+  });
+});
 
 describe("SiteLayout", () => {
   beforeEach(() => {
@@ -54,7 +67,7 @@ describe("SiteLayout", () => {
     const desktopNav = container.querySelector(".desktop-nav");
     const links = Array.from(desktopNav!.querySelectorAll("a"))
       .slice(0, 6)
-      .map(link => link.textContent);
+      .map((link) => link.textContent);
 
     expect(links).toEqual([
       "Início",
@@ -68,7 +81,6 @@ describe("SiteLayout", () => {
     expect(desktopNav!.querySelector("details.section-menu")).not.toBeNull();
     expect(container.querySelector(".header-contact")).toBeNull();
   });
-
   it("uses the same label for the testimonials link and its destination", () => {
     const { container } = render(
       <SiteLayout>
@@ -122,5 +134,4 @@ describe("SiteLayout", () => {
     fireEvent.click(screen.getByRole("link", { name: "Instagram @psicologasimone" }));
     expect(sectionMenu).not.toHaveAttribute("open");
   });
-
 });

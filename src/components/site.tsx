@@ -1,6 +1,29 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowRight, Award, Baby, Brain, Building2, CalendarDays, Check, ChevronDown, Ear, HandHeart, Heart, HeartHandshake, Laptop, Leaf, MapPin, Menu, MessageCircle, Phone, Sparkles, Sprout, UsersRound, X } from "lucide-react";
+import {
+  ArrowRight,
+  Award,
+  Baby,
+  Brain,
+  Building2,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  Ear,
+  HandHeart,
+  Heart,
+  HeartHandshake,
+  Laptop,
+  Leaf,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Phone,
+  Sparkles,
+  Sprout,
+  UsersRound,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import portrait from "@/assets/portrait.jpg.asset.json";
 import about from "@/assets/about.jpg.asset.json";
@@ -166,17 +189,102 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 export function SectionTitle({ eyebrow, children, center = true }: { eyebrow: string; children: ReactNode; center?: boolean }) { return <div className={`section-title ${center ? "center" : ""}`}><p className="eyebrow">{eyebrow}</p><h2>{children}</h2></div>; }
 export function Hero() { return <section className="home-hero"><div className="site-container hero-grid"><div className="hero-copy"><p className="eyebrow">Psicóloga clínica · CRP 06/85827</p><h1>Um espaço de<br />cuidado para a<br />sua <em>saúde mental</em></h1><p className="hero-description">Atendo crianças, adolescentes, adultos e idosos. Com uma escuta qualificada, experiência prática, olhar humano e acolhedor.</p><div className="action-row"><WhatsApp>Agendar pelo WhatsApp</WhatsApp><Button asChild variant="careOutline"><Link to="/atendimento">Conhecer o atendimento <ArrowRight /></Link></Button></div><div className="credential-row"><span><Award />15 anos de clínica</span><span><MapPin />Moema · Espaço Shambala</span><span><Laptop />Atendimento online</span></div></div><div className="portrait-frame"><img src={assetUrl(portrait.url)} alt="Simone Costa, psicóloga clínica" fetchPriority="high" /><span className="portrait-caption">CRP 06/85827</span></div></div></section>; }
 const reasonsToSeekSupport = [
-  { icon: Brain, text: "A ansiedade, a preocupação ou o estresse têm ocupado espaço demais no seu dia a dia." },
-  { icon: Heart, text: "Uma mudança, perda ou fase difícil tem sido complicada de atravessar." },
-  { icon: HandHeart, text: "Conflitos nos relacionamentos estão afetando seu bem-estar." },
-  { icon: Sparkles, text: "Você quer se conhecer melhor e encontrar novas formas de lidar com o que sente." },
+  {
+    icon: Brain,
+    title: "Ansiedade excessiva",
+    text: "Quando as preocupações e os pensamentos negativos afetam sua rotina e seu bem-estar.",
+  },
+  {
+    icon: Heart,
+    title: "Tristeza persistente",
+    text: "Quando o desânimo, a angústia ou a falta de motivação se tornam frequentes e duram mais de duas semanas.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Dificuldades nos relacionamentos",
+    text: "Quando conflitos e padrões repetitivos causam sofrimento.",
+  },
+  {
+    icon: Sparkles,
+    title: "Baixa autoestima",
+    text: "Quando é difícil reconhecer seu próprio valor e suas capacidades.",
+  },
+  {
+    icon: HandHeart,
+    title: "Dependência emocional",
+    text: "Quando o medo de perder alguém faz você deixar suas próprias necessidades de lado.",
+  },
+  {
+    icon: Brain,
+    title: "Dificuldade para lidar com emoções",
+    text: "Quando a raiva, o medo, a culpa ou a insegurança parecem difíceis de controlar.",
+  },
+  {
+    icon: Leaf,
+    title: "Momentos de mudança",
+    text: "Em situações como separações, luto, mudanças profissionais ou crises pessoais.",
+  },
+  {
+    icon: Heart,
+    title: "Sensação de sobrecarga",
+    text: "Quando as responsabilidades e cobranças parecem maiores do que você consegue suportar, podendo levar ao esgotamento (burnout).",
+  },
+  {
+    icon: Sparkles,
+    title: "Desejo de autoconhecimento",
+    text: "Para compreender seus comportamentos, reconhecer padrões e desenvolver novas formas de lidar com a vida.",
+  },
+  {
+    icon: Ear,
+    title: "Sofrimento que interfere na rotina",
+    text: "Quando o que você sente começa a prejudicar o sono, o trabalho, os estudos ou as relações pessoais.",
+  },
 ];
 export function WhenToSeek() {
-  return <section className="section" id="quando-procurar"><div className="site-container">
-    <SectionTitle eyebrow="Quando procurar" >Você não precisa passar por tudo <em>sozinho</em></SectionTitle>
-    <p className="section-intro">A terapia pode ser um espaço de acolhimento e reflexão em diferentes momentos da vida. Não é preciso esperar chegar ao limite para buscar apoio.</p>
-    <div className="when-grid">{reasonsToSeekSupport.map(item => <article className="when-card" key={item.text}><span className="pillar-icon"><item.icon aria-hidden="true" /></span><p>{item.text}</p></article>)}</div>
-  </div></section>;
+  return (
+    <section className="section" id="quando-procurar">
+      <div className="site-container">
+        <SectionTitle eyebrow="Quando procurar">
+          Quando buscar <em>terapia?</em>
+        </SectionTitle>
+        <p className="section-intro">
+          Você não precisa esperar que a dor se torne intensa para buscar ajuda. A terapia pode ser
+          um espaço de acolhimento em diferentes momentos da vida.
+        </p>
+        <div className="when-grid">
+          {reasonsToSeekSupport.map((item) => (
+            <article className="when-card" key={item.title}>
+              <span className="pillar-icon">
+                <item.icon aria-hidden="true" />
+              </span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="when-info-grid">
+          <article className="when-info-card">
+            <h3>O que é terapia?</h3>
+            <p>
+              A terapia é um espaço de acolhimento e cuidado, onde você pode falar sobre seus
+              sentimentos, compreender suas emoções e aprender a olhar para si com mais carinho e
+              amorosidade.
+            </p>
+          </article>
+          <article className="when-info-card">
+            <h3>Qual o papel do psicólogo?</h3>
+            <p>
+              O psicólogo oferece uma escuta acolhedora, ética e sem julgamentos, ajudando você a
+              compreender seus sentimentos, pensamentos e comportamentos ao longo do processo
+              terapêutico.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
 }
 const specialtyIcons = [Baby, UsersRound, Heart, Brain, HandHeart, Sparkles];
 export function Specialties() {
