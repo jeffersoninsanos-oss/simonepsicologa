@@ -57,7 +57,7 @@
 .desktop-nav .care-nav-button { padding: 10px 11px; border: 1px solid var(--border); background: var(--card); color: var(--foreground); font-size: 13px; font-weight: 500; white-space: nowrap; transition: background .2s, color .2s, border-color .2s, transform .2s; }
 .desktop-nav .care-nav-button:hover,.section-menu[open] > summary { border-color: oklch(.78 .075 312); background: var(--secondary); color: var(--primary); }
 .desktop-nav .care-nav-button:hover { transform: translateY(-1px); }
-.desktop-nav .care-nav-button[data-active=true] { border-color: oklch(.78 .075 312); }
+.desktop-nav .care-nav-button[data-active=true] { border-color: oklch(.78 .075 312); background: var(--secondary); color: var(--primary); }
 .desktop-nav .care-nav-button:active { transform: translateY(1px); }
 .section-menu { position: relative; }
 .section-menu summary { display: flex; align-items: center; gap: 5px; list-style: none; cursor: pointer; }
