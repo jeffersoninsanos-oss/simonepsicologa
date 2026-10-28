@@ -190,54 +190,44 @@ export function SectionTitle({ eyebrow, children, center = true }: { eyebrow: st
 export function Hero() { return <section className="home-hero"><div className="site-container hero-grid"><div className="hero-copy"><p className="eyebrow">Psicóloga clínica · CRP 06/85827</p><h1>Um espaço de<br />cuidado para a<br />sua <em>saúde mental</em></h1><p className="hero-description">Atendo crianças, adolescentes, adultos e idosos. Com uma escuta qualificada, experiência prática, olhar humano e acolhedor.</p><div className="action-row"><WhatsApp>Agendar pelo WhatsApp</WhatsApp><Button asChild variant="careOutline"><Link to="/atendimento">Conhecer o atendimento <ArrowRight /></Link></Button></div><div className="credential-row"><span><Award />15 anos de clínica</span><span><MapPin />Moema · Espaço Shambala</span><span><Laptop />Atendimento online</span></div></div><div className="portrait-frame"><img src={assetUrl(portrait.url)} alt="Simone Costa, psicóloga clínica" fetchPriority="high" /><span className="portrait-caption">CRP 06/85827</span></div></div></section>; }
 const reasonsToSeekSupport = [
   {
-    icon: Brain,
     title: "Ansiedade excessiva",
-    text: "Quando as preocupações e os pensamentos negativos afetam sua rotina e seu bem-estar.",
+    text: "quando as preocupações, principalmente pensamentos negativos, afetam sua rotina e seu bem-estar.",
   },
   {
-    icon: Heart,
     title: "Tristeza persistente",
-    text: "Quando o desânimo, a angústia ou a falta de motivação se tornam frequentes e duram mais de duas semanas.",
+    text: "quando o desânimo, a angústia ou a falta de motivação se tornam frequentes, ultrapassando de duas semanas para mais.",
   },
   {
-    icon: HeartHandshake,
     title: "Dificuldades nos relacionamentos",
-    text: "Quando conflitos e padrões repetitivos causam sofrimento.",
+    text: "quando conflitos e padrões repetitivos causam sofrimento.",
   },
   {
-    icon: Sparkles,
     title: "Baixa autoestima",
-    text: "Quando é difícil reconhecer seu próprio valor e suas capacidades.",
+    text: "quando você tem dificuldade de reconhecer seu valor e suas capacidades.",
   },
   {
-    icon: HandHeart,
     title: "Dependência emocional",
-    text: "Quando o medo de perder alguém faz você deixar suas próprias necessidades de lado.",
+    text: "quando o medo de perder alguém faz você deixar suas próprias necessidades de lado.",
   },
   {
-    icon: Brain,
     title: "Dificuldade para lidar com emoções",
-    text: "Quando a raiva, o medo, a culpa ou a insegurança parecem difíceis de controlar.",
+    text: "quando a raiva, o medo, a culpa ou a insegurança parecem difíceis de controlar.",
   },
   {
-    icon: Leaf,
     title: "Momentos de mudança",
-    text: "Em situações como separações, luto, mudanças profissionais ou crises pessoais.",
+    text: "como separações, luto, mudanças profissionais ou crises pessoais.",
   },
   {
-    icon: Heart,
     title: "Sensação de sobrecarga",
-    text: "Quando as responsabilidades e cobranças parecem maiores do que você consegue suportar, podendo levar ao esgotamento (burnout).",
+    text: "quando as responsabilidades e as cobranças parecem maiores do que você consegue suportar, podendo ocasionar um Burnout.",
   },
   {
-    icon: Sparkles,
     title: "Desejo de autoconhecimento",
-    text: "Para compreender seus comportamentos, reconhecer padrões e desenvolver novas formas de lidar com a vida.",
+    text: "para compreender seus comportamentos, reconhecer padrões e desenvolver novas formas de lidar com a vida.",
   },
   {
-    icon: Ear,
-    title: "Sofrimento que interfere na rotina",
-    text: "Quando o que você sente começa a prejudicar o sono, o trabalho, os estudos ou as relações pessoais.",
+    title: "Quando o sofrimento começa a interferir na rotina",
+    text: "prejudicando o sono, o trabalho, os estudos ou as relações pessoais.",
   },
 ];
 export function WhenToSeek() {
@@ -248,24 +238,17 @@ export function WhenToSeek() {
           Quando buscar <em>terapia?</em>
         </SectionTitle>
         <p className="section-intro">
-          Você não precisa esperar que a dor se torne intensa para buscar ajuda. A terapia pode ser
-          um espaço de acolhimento em diferentes momentos da vida.
+          Você não precisa esperar que a dor se torne intensa para buscar ajuda.
         </p>
-        <div className="when-grid">
+        <ul className="when-list">
           {reasonsToSeekSupport.map((item) => (
-            <article className="when-card" key={item.title}>
-              <span className="pillar-icon">
-                <item.icon aria-hidden="true" />
-              </span>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-            </article>
+            <li key={item.title}>
+              <strong>{item.title}:</strong> {item.text}
+            </li>
           ))}
-        </div>
-        <div className="when-info-grid">
-          <article className="when-info-card">
+        </ul>
+        <div className="when-details">
+          <article>
             <h3>O que é terapia?</h3>
             <p>
               A terapia é um espaço de acolhimento e cuidado, onde você pode falar sobre seus
@@ -273,12 +256,11 @@ export function WhenToSeek() {
               amorosidade.
             </p>
           </article>
-          <article className="when-info-card">
-            <h3>Qual o papel do psicólogo?</h3>
+          <article>
+            <h3>Qual o papel do Psicólogo?</h3>
             <p>
-              O psicólogo oferece uma escuta acolhedora, ética e sem julgamentos, ajudando você a
-              compreender seus sentimentos, pensamentos e comportamentos ao longo do processo
-              terapêutico.
+              O papel do psicólogo é oferecer uma escuta acolhedora, ética e sem julgamentos,
+              ajudando o paciente a compreender seus sentimentos, pensamentos e comportamentos.
             </p>
           </article>
         </div>

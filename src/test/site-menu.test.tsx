@@ -16,12 +16,16 @@ describe("WhenToSeek", () => {
   it("explains when to seek therapy and what the therapeutic process offers", () => {
     const { container } = render(<WhenToSeek />);
 
-    expect(container.querySelectorAll(".when-card")).toHaveLength(10);
+    expect(container.querySelectorAll(".when-list li")).toHaveLength(10);
     expect(screen.getByRole("heading", { name: "Quando buscar terapia?" })).toBeInTheDocument();
-    expect(screen.getByText(/mais de duas semanas/)).toBeInTheDocument();
-    expect(screen.getByText(/burnout/)).toBeInTheDocument();
+    expect(screen.getByText(/principalmente pensamentos negativos/)).toBeInTheDocument();
+    expect(screen.getByText(/ultrapassando de duas semanas para mais/)).toBeInTheDocument();
+    expect(screen.getByText(/podendo ocasionar um Burnout/)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "O que é terapia?" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Qual o papel do psicólogo?" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Qual o papel do Psicólogo?" })).toBeInTheDocument();
+    expect(
+      screen.getByText(/ajudando o paciente a compreender seus sentimentos/),
+    ).toBeInTheDocument();
   });
 });
 
