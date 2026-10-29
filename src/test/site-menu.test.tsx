@@ -45,8 +45,13 @@ describe("PlaySection", () => {
 
     expect(container.querySelector(".rounded-photo")).toHaveAttribute(
       "src",
-      expect.stringContaining("/images/play.jpg"),
+      expect.stringContaining("/images/play-doll.jpg"),
     );
+    expect(
+      screen.getByAltText(
+        "Simone Costa segurando uma boneca durante uma atividade lúdica para o atendimento infantil",
+      ),
+    ).toBeInTheDocument();
   });
 });
 
