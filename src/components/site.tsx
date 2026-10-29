@@ -155,6 +155,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     { hash: "onde-atendo", label: "Onde atendo" },
     { hash: "duvidas-frequentes", label: "Dúvidas frequentes" },
   ] as const;
+  const handleHomeLogoClick = () => {
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  };
   const navLink = (item: (typeof sectionNav)[number]) => <Link key={item.hash} to="/" hash={item.hash} onClick={() => {
     setOpen(false);
     if (sectionMenuRef.current) sectionMenuRef.current.open = false;
@@ -163,7 +168,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     <script type="application/ld+json">{JSON.stringify(professionalService)}</script>
     <header className="site-header">
       <div className="site-container header-inner">
-        <Link to="/" className="brand" aria-label="Simone Costa — Início"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link>
+        <Link
+          to="/"
+          className="brand"
+          aria-label="Simone Costa — Início"
+          onClick={handleHomeLogoClick}
+        >
+          <img
+            className="official-logo"
+            src={assetUrl(officialLogo.url)}
+            alt="Simone Costa — Psicóloga, logo oficial"
+          />
+        </Link>
         <nav className="desktop-nav" aria-label="Navegação principal">
           {nav.slice(0, 4).map(n => <Button key={n.to} variant="careNav" asChild><Link to={n.to} data-active={pathname === n.to}>{n.label}</Link></Button>)}
           <Button variant="careNav" asChild>{navLink(sectionNav[2])}</Button>
@@ -190,7 +206,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     </header>
     <main>{children}</main>
     <footer className="site-footer"><div className="site-container footer-inner">
-      <Link to="/" className="brand"><img className="official-logo" src={assetUrl(officialLogo.url)} alt="Simone Costa — Psicóloga, logo oficial" /></Link>
+      <Link
+        to="/"
+        className="brand"
+        aria-label="Simone Costa — Início"
+        onClick={handleHomeLogoClick}
+      >
+        <img
+          className="official-logo"
+          src={assetUrl(officialLogo.url)}
+          alt="Simone Costa — Psicóloga, logo oficial"
+        />
+      </Link>
       <p>Cuidado, escuta e transformação.<br />Moema, São Paulo · Atendimento online</p>
       <div className="footer-links">{nav.slice(1).map(n => <Link key={n.to} to={n.to}>{n.label}</Link>)}</div>
     </div><div className="site-container footer-bottom">© {new Date().getFullYear()} Simone Costa. Todos os direitos reservados.</div></footer>

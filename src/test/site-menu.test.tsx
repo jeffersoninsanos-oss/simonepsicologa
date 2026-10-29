@@ -12,6 +12,7 @@ vi.mock("@tanstack/react-router", () => ({
 
 import {
   AboutSection,
+  Hero,
   Location,
   PlaySection,
   Reviews,
@@ -186,6 +187,39 @@ describe("SiteLayout", () => {
     expect(desktopNav!.querySelector("details.section-menu")).not.toBeNull();
     expect(container.querySelector(".header-contact")).toBeNull();
   });
+
+  it("uses the site's themed button styles for navigation and primary actions", () => {
+    const { container } = render(
+      <SiteLayout>
+        <Hero />
+      </SiteLayout>,
+    );
+
+    expect(container.querySelector(".desktop-nav .care-nav-button")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Agendar pelo WhatsApp/ })).toHaveClass(
+      "care-button-primary",
+    );
+    expect(screen.getByRole("link", { name: /Conhecer o atendimento/ })).toHaveClass(
+      "care-button-outline",
+    );
+  });
+
+  it("returns home from the header logo and scrolls to the top when already home", () => {
+    const scrollTo = vi.fn();
+    vi.stubGlobal("scrollTo", scrollTo);
+    render(
+      <SiteLayout>
+        <div>Page content</div>
+      </SiteLayout>,
+    );
+
+    const homeLogo = screen.getAllByRole("link", { name: "Simone Costa — Início" })[0];
+    expect(homeLogo).toHaveAttribute("href", "/");
+    fireEvent.click(homeLogo);
+
+    expect(scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "auto" });
+  });
+
   it("uses the same label for the testimonials link and its destination", () => {
     const { container } = render(
       <SiteLayout>
