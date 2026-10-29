@@ -428,8 +428,12 @@ function LocationPhotoCarousel() {
         className="location-carousel"
       >
         <CarouselContent>
-          {locationPhotos.map(({ image, alt }) => (
-            <CarouselItem key={image.url} className="location-slide">
+          {locationPhotos.map(({ image, alt }, index) => (
+            <CarouselItem
+              key={image.url}
+              className="location-slide"
+              data-active={selectedIndex === index}
+            >
               <img className="location-photo" src={assetUrl(image.url)} alt={alt} loading="lazy" />
             </CarouselItem>
           ))}

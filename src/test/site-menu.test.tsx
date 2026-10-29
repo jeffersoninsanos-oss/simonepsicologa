@@ -105,6 +105,10 @@ describe("Location", () => {
       "aria-pressed",
       "true",
     );
+    expect(container.querySelector('.location-slide[data-active="true"] img')).toHaveAttribute(
+      "src",
+      expect.stringContaining("/images/location-lounge.jpg"),
+    );
     expect(screen.getByText("Espaço Shambala")).toBeInTheDocument();
   });
 });
