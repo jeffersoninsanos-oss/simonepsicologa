@@ -12,6 +12,7 @@ vi.mock("@tanstack/react-router", () => ({
 
 import {
   AboutSection,
+  Audiences,
   Hero,
   Location,
   PlaySection,
@@ -20,6 +21,26 @@ import {
   Specialties,
   WhenToSeek,
 } from "@/components/site";
+
+describe("Audiences", () => {
+  it("shows four audience cards, including older adults, in the four-card grid", () => {
+    const { container } = render(<Audiences />);
+
+    expect(container.querySelector(".section-title h2")).toHaveTextContent(
+      "Crianças, adolescentes, adultos e idosos",
+    );
+    expect(container.querySelector(".audience-grid")).toHaveClass("audience-grid");
+    expect(container.querySelectorAll(".audience-card")).toHaveLength(4);
+    expect(screen.getByRole("heading", { name: "Idosos" })).toBeInTheDocument();
+    expect(
+      screen.getByText(/valorizando a autonomia, os vínculos e o bem-estar emocional/),
+    ).toBeInTheDocument();
+    expect(container.querySelector('.audience-card img[alt="Idosos"]')).toHaveAttribute(
+      "src",
+      expect.stringContaining("/images/seniors.jpg"),
+    );
+  });
+});
 
 describe("Specialties", () => {
   it("shows descriptions for the six areas of practice", () => {
@@ -114,6 +135,15 @@ describe("Location", () => {
     expect(container.querySelector('.location-slide[data-active="true"] img')).toHaveAttribute(
       "src",
       expect.stringContaining("/images/location-lounge.jpg"),
+    );
+    expect(screen.getByText("Av. Sabiá, 384 · Moema")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Ver localização/ })).toHaveAttribute(
+      "href",
+      expect.stringContaining("query=Av.%20Sabi%C3%A1%2C%20384%2C%20Moema"),
+    );
+    expect(screen.getByRole("link", { name: /Como chegar/ })).toHaveAttribute(
+      "href",
+      expect.stringContaining("destination=Av.%20Sabi%C3%A1%2C%20384%2C%20Moema"),
     );
     expect(screen.getByText("Espaço Shambala")).toBeInTheDocument();
   });

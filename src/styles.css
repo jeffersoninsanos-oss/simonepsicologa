@@ -90,6 +90,7 @@
 .section-title { margin-bottom: 42px; }
 .section-title .eyebrow { margin-bottom: 17px; }
 .three-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+.audience-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 20px; align-items: stretch; }
 .first-contact { background: linear-gradient(180deg, var(--background), var(--secondary)); }
 .first-contact-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
 .first-contact-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 26px; box-shadow: var(--care-shadow); }
@@ -222,6 +223,7 @@
 }
 @media(min-width:1600px) { .home-hero { padding-bottom: 79px; } }
 @media(max-width:1100px) { .hero-grid { grid-template-columns: 1.25fr .9fr; gap: 35px; } h1 { font-size: 46px; } .hero-description { font-size: 16px; } .care-button { padding: 0 21px; font-size: 14px; } .hero-copy .action-row { gap: 10px; } .portrait-frame { height: 470px; } .credential-row span { padding: 6px 10px; } .split-grid { gap: 50px; } }
+@media(max-width:1100px) { .audience-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 @media(max-width:900px) { .header-inner { height: 104px; } .official-logo { width: 108px; height: auto; } .desktop-nav { display: none; } .mobile-menu-button { display: inline-flex; } .mobile-nav { display: flex; flex-direction: column; padding: 12px 20px 25px; gap: 6px; border-bottom: 1px solid var(--border); background: var(--background); } .mobile-nav > a:not(.care-button) { padding: 11px 15px; border: 1px solid var(--border); border-radius: 25px; background: var(--card); color: var(--foreground); font-size: 15px; font-weight: 500; } .mobile-nav > a:not(.care-button):hover { background: var(--secondary); color: var(--primary); } .mobile-nav .care-button { margin-top: 10px; } }
 @media(max-width:760px) {
  .site-container { width: calc(100% - 40px); } .header-inner { height: 72px; } .brand-name { font-size: 20px; } .desktop-nav { display: none; } .mobile-menu-button { display: inline-flex; } .mobile-nav { display: flex; flex-direction: column; padding: 12px 20px 25px; gap: 6px; border-bottom: 1px solid var(--border); background: var(--background); } .mobile-nav > a:not(.care-button) { padding: 11px 15px; border: 1px solid var(--border); border-radius: 25px; background: var(--card); color: var(--foreground); font-size: 15px; font-weight: 500; } .mobile-nav > a:not(.care-button):hover { background: var(--secondary); color: var(--primary); } .mobile-nav .care-button { margin-top: 10px; }

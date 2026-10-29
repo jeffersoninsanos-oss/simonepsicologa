@@ -37,6 +37,7 @@ import about from "@/assets/about.jpg.asset.json";
 import children from "@/assets/children.jpg.asset.json";
 import teens from "@/assets/teens.jpg.asset.json";
 import adults from "@/assets/adults.jpg.asset.json";
+import seniors from "@/assets/seniors.jpg.asset.json";
 import lecture from "@/assets/lecture.jpg.asset.json";
 import play from "@/assets/play.jpg.asset.json";
 import locationSpace from "@/assets/location-space.jpg.asset.json";
@@ -49,8 +50,9 @@ const assetUrl = (url: string) => import.meta.env.BASE_URL + (url.startsWith("/"
 
 export const photos = { portrait, about, children, teens, adults, lecture, play };
 export const whatsapp = "https://wa.me/5511943441672?text=Ol%C3%A1%2C%20Simone!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20conversa.";
-const map = "https://www.google.com/maps/search/?api=1&query=Rua%20Can%C3%A1rio%2C%20384%20-%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP";
-const directions = "https://www.google.com/maps/dir/?api=1&destination=Rua%20Can%C3%A1rio%2C%20384%20-%20Moema%2C%20S%C3%A3o%20Paulo%20-%20SP";
+const officeAddress = "Av. Sabiá, 384, Moema, São Paulo - SP";
+const map = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(officeAddress)}`;
+const directions = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(officeAddress)}`;
 const siteUrl = "https://www.psicologasimonecosta.com.br";
 export function pageHead(title: string, description: string, path = "/") {
   const canonical = `${siteUrl}${path === "/" ? "/" : `${path}/`}`;
@@ -76,7 +78,7 @@ const professionalService = {
   telephone: "+5511943441672",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Rua Canário, 384, Moema",
+    streetAddress: "Av. Sabiá, 384, Moema",
     addressLocality: "São Paulo",
     addressRegion: "SP",
     addressCountry: "BR",
@@ -388,8 +390,13 @@ export function FirstContact() {
 }
 export function Pillars() { const items = [{ icon: Ear, title: "Escuta qualificada", text: "Um espaço seguro para falar e ser ouvido sem julgamentos, no seu tempo." }, { icon: HeartHandshake, title: "Experiência prática", text: "15 anos acompanhando crianças, adolescentes e adultos em diferentes fases da vida." }, { icon: Sprout, title: "Olhar humano", text: "Cada pessoa é única: o cuidado é construído a partir da sua história e das suas necessidades." }]; return <section className="section lavender-band"><div className="site-container"><SectionTitle eyebrow="Meu jeito de trabalhar">Três pilares do meu <em>trabalho</em></SectionTitle><div className="three-grid">{items.map(i => <article className="pillar-card" key={i.title}><span className="pillar-icon"><i.icon /></span><h3>{i.title}</h3><p>{i.text}</p></article>)}</div></div></section>; }
 export function AboutSection({ full = false }: { full?: boolean }) { return <section className="section"><div className="site-container split-grid"><div className="about-image"><img src={assetUrl(about.url)} alt="Simone Costa apoiada em livros sobre terapia, autoconhecimento e ansiedade" loading="lazy" /></div><div><SectionTitle eyebrow="Sobre mim" center={false}>Psicóloga clínica há <em>15 anos</em></SectionTitle><p>Atuo no cuidado da saúde mental de crianças, adolescentes, adultos e idosos, acolhendo questões relacionadas à ansiedade, autoestima, relacionamentos, dependência emocional, vícios em jogos, bullying, estresse e síndrome do pânico.</p><p>Meu compromisso é acolher as dores e potencializar as forças, apoiando cada pessoa na construção de sua própria identidade com segurança e confiança.</p>{!full && <Button asChild variant="careOutline"><Link to="/sobre">Conhecer minha trajetória <ArrowRight /></Link></Button>}</div></div></section>; }
-const audiences = [{ title: "Crianças", image: children, text: "Por meio do brincar, a criança aprende a reconhecer e a expressar o que sente, fortalecendo a autoestima e as relações." }, { title: "Adolescentes", image: teens, text: "Acompanhamento com atenção às transformações da adolescência, à busca por identidade e às demandas emocionais do cotidiano." }, { title: "Adultos", image: adults, text: "Apoio para lidar com ciclos de ansiedade, esgotamento, conflitos, transições e desafios de bem-estar emocional." }];
-export function Audiences({ full = false }: { full?: boolean }) { return <section className="section lavender-band"><div className="site-container"><SectionTitle eyebrow="Para quem atendo">Crianças, <em>adolescentes</em> e adultos</SectionTitle><div className="three-grid">{audiences.map(a => <article className="audience-card" key={a.title}><img src={assetUrl(a.image.url)} alt={a.title} loading="lazy" /><div><h3>{a.title}</h3><p>{a.text}</p></div></article>)}</div>{full && <p className="section-intro">Também atendemos idosos, com acolhimento sensível às questões da maturidade, da saúde emocional e do cuidado em diferentes etapas da vida.</p>}</div></section>; }
+const audiences = [
+  { title: "Crianças", image: children, text: "Por meio do brincar, a criança aprende a reconhecer e a expressar o que sente, fortalecendo a autoestima e as relações." },
+  { title: "Adolescentes", image: teens, text: "Acompanhamento com atenção às transformações da adolescência, à busca por identidade e às demandas emocionais do cotidiano." },
+  { title: "Adultos", image: adults, text: "Apoio para lidar com ciclos de ansiedade, esgotamento, conflitos, transições e desafios de bem-estar emocional." },
+  { title: "Idosos", image: seniors, text: "Acolhimento às mudanças e aos desafios dessa etapa da vida, valorizando a autonomia, os vínculos e o bem-estar emocional de cada pessoa." },
+];
+export function Audiences({ full = false }: { full?: boolean }) { return <section className="section lavender-band"><div className="site-container"><SectionTitle eyebrow="Para quem atendo">Crianças, <em>adolescentes</em>, adultos e idosos</SectionTitle><div className="audience-grid">{audiences.map(a => <article className="audience-card" key={a.title}><img src={assetUrl(a.image.url)} alt={a.title} loading="lazy" /><div><h3>{a.title}</h3><p>{a.text}</p></div></article>)}</div></div></section>; }
 const lectureAudiences = [
   { title: "Para empresas", icon: Building2, description: "Encontros para empresas, equipes e lideranças, com foco no bem-estar, nas relações e em um clima organizacional mais saudável.", topics: ["Saúde mental no trabalho", "Relações e comunicação", "Clima organizacional"], detail: "Palestras e oficinas para ampliar a consciência emocional, fortalecer o cuidado coletivo e reduzir o desgaste cotidiano." },
   { title: "Para escolas", icon: Sprout, description: "Cuidado emocional e autoconhecimento para alunos, professores, famílias e equipes escolares, respeitando as necessidades de cada público.", topics: ["Ansiedade e estresse", "Bullying", "Autoconhecimento"], detail: "Intervenções acessíveis e práticas, pensadas para tornar o cuidado emocional parte do ciclo escolar e familiar." },
@@ -424,7 +431,7 @@ const locationPhotos = [
   },
   {
     image: locationExterior,
-    alt: "Fachada do Espaço Shambala na Rua Canário, em Moema",
+    alt: "Fachada do Espaço Shambala na Avenida Sabiá, em Moema",
   },
 ];
 
@@ -475,7 +482,7 @@ function LocationPhotoCarousel() {
       <div className="location-photo-caption">
         <span className="eyebrow">Um espaço de cuidado e acolhimento</span>
         <span className="location-photo-title">Espaço Shambala</span>
-        <span className="location-photo-address">Rua Canário, 384 · Moema</span>
+        <span className="location-photo-address">Av. Sabiá, 384 · Moema</span>
         <a className="map-link" href={map} target="_blank" rel="noopener noreferrer">
           Ver localização <ArrowRight size={16} />
         </a>
@@ -502,11 +509,11 @@ function LocationPhotoCarousel() {
 export function Location() {
   return <section className="section" id="onde-atendo"><div className="site-container">
     <SectionTitle eyebrow="Onde atendo">Espaço Shambala, em <em>Moema</em></SectionTitle>
-    <p className="section-intro">Atendimento presencial em um espaço tranquilo e acolhedor na Rua Canário, 384 – Moema, São Paulo. Também atendo online, com a mesma qualidade e o mesmo sigilo profissional.</p>
+    <p className="section-intro">Atendimento presencial em um espaço tranquilo e acolhedor na Av. Sabiá, 384 – Moema, São Paulo. Também atendo online, com a mesma qualidade e o mesmo sigilo profissional.</p>
     <div className="location-grid">
       <div className="location-info">
         <span className="pillar-icon"><MapPin /></span>
-        <p>Rua Canário, 384 – Moema<br />São Paulo – SP</p>
+        <p>Av. Sabiá, 384 – Moema<br />São Paulo – SP</p>
         <p className="small-copy">O Espaço de atendimento fica próximo à estação Moema da Linha 5–Lilás do metrô.</p>
         <p className="small-copy">O endereço completo é enviado junto com a confirmação do agendamento.</p>
         <div className="action-row">
@@ -518,7 +525,7 @@ export function Location() {
       <LocationPhotoCarousel />
     </div>
     <div className="two-grid location-types">
-      <div><Building2 /><h3>Presencial</h3><p>Rua Canário, 384 – Moema, São Paulo. Um espaço tranquilo e reservado para as sessões.</p></div>
+      <div><Building2 /><h3>Presencial</h3><p>Av. Sabiá, 384 – Moema, São Paulo. Um espaço tranquilo e reservado para as sessões.</p></div>
       <div><Laptop /><h3>Online</h3><p>Sessões por vídeo para quem prefere a praticidade de casa ou mora em outra cidade.</p></div>
     </div>
   </div></section>;
