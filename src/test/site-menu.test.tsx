@@ -10,7 +10,104 @@ vi.mock("@tanstack/react-router", () => ({
     select({ location: { pathname: "/" } }),
 }));
 
-import { Reviews, SiteLayout, WhenToSeek } from "@/components/site";
+import {
+  AboutSection,
+  Location,
+  PlaySection,
+  Reviews,
+  SiteLayout,
+  Specialties,
+  WhenToSeek,
+} from "@/components/site";
+
+describe("Specialties", () => {
+  it("shows descriptions for the six areas of practice", () => {
+    const { container } = render(<Specialties />);
+
+    expect(container.querySelectorAll(".specialty-card")).toHaveLength(6);
+    for (const title of [
+      "Terapia de Casal",
+      "Dependência emocional",
+      "Burnout",
+      "Ansiedade",
+      "Depressão",
+      "Bullying",
+    ]) {
+      expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
+    }
+  });
+});
+
+describe("PlaySection", () => {
+  it("uses the current play photo asset", () => {
+    const { container } = render(<PlaySection />);
+
+    expect(container.querySelector(".rounded-photo")).toHaveAttribute(
+      "src",
+      expect.stringContaining("/images/play.jpg"),
+    );
+  });
+});
+
+describe("AboutSection", () => {
+  it("uses the current about photo asset", () => {
+    const { container } = render(<AboutSection />);
+
+    expect(container.querySelector(".about-image img")).toHaveAttribute(
+      "src",
+      expect.stringContaining("/images/about.jpg"),
+    );
+    expect(
+      screen.getByAltText(
+        "Simone Costa apoiada em livros sobre terapia, autoconhecimento e ansiedade",
+      ),
+    ).toBeInTheDocument();
+  });
+});
+
+describe("Location", () => {
+  beforeEach(() => {
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      },
+    );
+    vi.stubGlobal(
+      "ResizeObserver",
+      class {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      },
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("shows all four space photos in an accessible map-card carousel", () => {
+    const { container } = render(<Location />);
+
+    expect(container.querySelectorAll(".location-photo")).toHaveLength(4);
+    expect(screen.getByRole("region", { name: "Fotos do Espaço Shambala" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Foto anterior" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Próxima foto" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Mostrar foto 1 de 4" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Mostrar foto 2 de 4" }));
+    expect(screen.getByRole("button", { name: "Mostrar foto 2 de 4" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(screen.getByText("Espaço Shambala")).toBeInTheDocument();
+  });
+});
 
 describe("WhenToSeek", () => {
   it("explains when to seek therapy and what the therapeutic process offers", () => {

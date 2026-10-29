@@ -3,14 +3,14 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowRight,
   Award,
-  Baby,
   Brain,
+  BriefcaseBusiness,
   Building2,
   CalendarDays,
   Check,
+  CloudSun,
   ChevronDown,
   Ear,
-  HandHeart,
   Heart,
   HeartHandshake,
   Laptop,
@@ -19,12 +19,19 @@ import {
   Menu,
   MessageCircle,
   Phone,
-  Sparkles,
+  ShieldAlert,
   Sprout,
-  UsersRound,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import portrait from "@/assets/portrait.jpg.asset.json";
 import about from "@/assets/about.jpg.asset.json";
 import children from "@/assets/children.jpg.asset.json";
@@ -32,6 +39,10 @@ import teens from "@/assets/teens.jpg.asset.json";
 import adults from "@/assets/adults.jpg.asset.json";
 import lecture from "@/assets/lecture.jpg.asset.json";
 import play from "@/assets/play.jpg.asset.json";
+import locationSpace from "@/assets/location-space.jpg.asset.json";
+import locationLounge from "@/assets/location-lounge.jpg.asset.json";
+import locationCourtyard from "@/assets/location-courtyard.jpg.asset.json";
+import locationExterior from "@/assets/location-exterior.jpg.asset.json";
 import officialLogo from "@/assets/logo-oficial-transparente.png.asset.json";
 
 const assetUrl = (url: string) => import.meta.env.BASE_URL + (url.startsWith("/") ? url.slice(1) : url);
@@ -123,7 +134,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => {
-    const sel = ".section-title,.section-intro,.pillar-card,.audience-card,.lecture-card,.lecture-image,.about-image,.rounded-photo,.split-grid > div:last-child,.faq-item,.location-info,.location-visual";
+    const sel = ".section-title,.section-intro,.pillar-card,.specialty-card,.audience-card,.lecture-card,.lecture-image,.about-image,.rounded-photo,.split-grid > div:last-child,.faq-item,.location-info,.location-visual";
     const els = Array.from(document.querySelectorAll<HTMLElement>(sel));
     const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
     els.forEach(el => {
@@ -268,12 +279,59 @@ export function WhenToSeek() {
     </section>
   );
 }
-const specialtyIcons = [Baby, UsersRound, Heart, Brain, HandHeart, Sparkles];
+const specialties = [
+  {
+    title: "Terapia de Casal",
+    icon: HeartHandshake,
+    text: "Um espaço para fortalecer o diálogo, compreender padrões de convivência e construir, em conjunto, caminhos mais saudáveis para a relação.",
+  },
+  {
+    title: "Dependência emocional",
+    icon: Heart,
+    text: "Acolhimento para reconhecer vínculos, fortalecer a autonomia emocional e desenvolver relações com mais equilíbrio e respeito às próprias necessidades.",
+  },
+  {
+    title: "Burnout",
+    icon: BriefcaseBusiness,
+    text: "Apoio para compreender sinais de esgotamento, rever limites e construir formas mais sustentáveis de lidar com as demandas do trabalho e da vida.",
+  },
+  {
+    title: "Ansiedade",
+    icon: Brain,
+    text: "Um espaço para entender preocupações e reações de ansiedade, ampliar recursos para lidar com o dia a dia e recuperar segurança nas próprias escolhas.",
+  },
+  {
+    title: "Depressão",
+    icon: CloudSun,
+    text: "Escuta e acompanhamento diante de sentimentos persistentes de tristeza, desânimo ou falta de interesse, respeitando o tempo e a história de cada pessoa.",
+  },
+  {
+    title: "Bullying",
+    icon: ShieldAlert,
+    text: "Acolhimento para elaborar os impactos das agressões, fortalecer autoestima e segurança e encontrar apoio para enfrentar a situação.",
+  },
+];
 export function Specialties() {
-  return <section className="section lavender-band" id="especialidades"><div className="site-container">
-    <SectionTitle eyebrow="Especialidades">Áreas de <em>atuação</em></SectionTitle>
-    <div className="specialty-icons" aria-label="Especialidades em atualização">{specialtyIcons.map((Icon, index) => <span className="specialty-icon" key={index} aria-hidden="true"><Icon /></span>)}</div>
-  </div></section>;
+  return (
+    <section className="section lavender-band" id="especialidades">
+      <div className="site-container">
+        <SectionTitle eyebrow="Especialidades">
+          Áreas de <em>atuação</em>
+        </SectionTitle>
+        <div className="specialty-icons">
+          {specialties.map(({ title, icon: Icon, text }) => (
+            <article className="specialty-card" key={title}>
+              <span className="specialty-icon" aria-hidden="true">
+                <Icon />
+              </span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 export function Reviews() {
   const reviews = [
@@ -302,7 +360,7 @@ export function FirstContact() {
   return <section className="section first-contact"><div className="site-container"><SectionTitle eyebrow="Primeiro contato">Um primeiro passo, <em>no seu tempo</em></SectionTitle><p className="section-intro">Você pode começar esclarecendo suas dúvidas e decidir os próximos passos com tranquilidade.</p><div className="first-contact-grid">{steps.map((step, index) => <article className="first-contact-card" key={step.title}><span className="first-contact-icon"><step.icon aria-hidden="true" /></span><span className="first-contact-number">0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div><div className="center first-contact-cta"><WhatsApp>Falar com Simone no WhatsApp</WhatsApp></div></div></section>;
 }
 export function Pillars() { const items = [{ icon: Ear, title: "Escuta qualificada", text: "Um espaço seguro para falar e ser ouvido sem julgamentos, no seu tempo." }, { icon: HeartHandshake, title: "Experiência prática", text: "15 anos acompanhando crianças, adolescentes e adultos em diferentes fases da vida." }, { icon: Sprout, title: "Olhar humano", text: "Cada pessoa é única: o cuidado é construído a partir da sua história e das suas necessidades." }]; return <section className="section lavender-band"><div className="site-container"><SectionTitle eyebrow="Meu jeito de trabalhar">Três pilares do meu <em>trabalho</em></SectionTitle><div className="three-grid">{items.map(i => <article className="pillar-card" key={i.title}><span className="pillar-icon"><i.icon /></span><h3>{i.title}</h3><p>{i.text}</p></article>)}</div></div></section>; }
-export function AboutSection({ full = false }: { full?: boolean }) { return <section className="section"><div className="site-container split-grid"><div className="about-image"><img src={assetUrl(about.url)} alt="Simone Costa com bonecos de crochê usados no atendimento infantil" loading="lazy" /></div><div><SectionTitle eyebrow="Sobre mim" center={false}>Psicóloga clínica há <em>15 anos</em></SectionTitle><p>Atuo no cuidado da saúde mental de crianças, adolescentes, adultos e idosos, acolhendo questões relacionadas à ansiedade, autoestima, relacionamentos, dependência emocional, vícios em jogos, bullying, estresse e síndrome do pânico.</p><p>Meu compromisso é acolher as dores e potencializar as forças, apoiando cada pessoa na construção de sua própria identidade com segurança e confiança.</p>{!full && <Button asChild variant="careOutline"><Link to="/sobre">Conhecer minha trajetória <ArrowRight /></Link></Button>}</div></div></section>; }
+export function AboutSection({ full = false }: { full?: boolean }) { return <section className="section"><div className="site-container split-grid"><div className="about-image"><img src={assetUrl(about.url)} alt="Simone Costa apoiada em livros sobre terapia, autoconhecimento e ansiedade" loading="lazy" /></div><div><SectionTitle eyebrow="Sobre mim" center={false}>Psicóloga clínica há <em>15 anos</em></SectionTitle><p>Atuo no cuidado da saúde mental de crianças, adolescentes, adultos e idosos, acolhendo questões relacionadas à ansiedade, autoestima, relacionamentos, dependência emocional, vícios em jogos, bullying, estresse e síndrome do pânico.</p><p>Meu compromisso é acolher as dores e potencializar as forças, apoiando cada pessoa na construção de sua própria identidade com segurança e confiança.</p>{!full && <Button asChild variant="careOutline"><Link to="/sobre">Conhecer minha trajetória <ArrowRight /></Link></Button>}</div></div></section>; }
 const audiences = [{ title: "Crianças", image: children, text: "Por meio do brincar, a criança aprende a reconhecer e a expressar o que sente, fortalecendo a autoestima e as relações." }, { title: "Adolescentes", image: teens, text: "Acompanhamento com atenção às transformações da adolescência, à busca por identidade e às demandas emocionais do cotidiano." }, { title: "Adultos", image: adults, text: "Apoio para lidar com ciclos de ansiedade, esgotamento, conflitos, transições e desafios de bem-estar emocional." }];
 export function Audiences({ full = false }: { full?: boolean }) { return <section className="section lavender-band"><div className="site-container"><SectionTitle eyebrow="Para quem atendo">Crianças, <em>adolescentes</em> e adultos</SectionTitle><div className="three-grid">{audiences.map(a => <article className="audience-card" key={a.title}><img src={assetUrl(a.image.url)} alt={a.title} loading="lazy" /><div><h3>{a.title}</h3><p>{a.text}</p></div></article>)}</div>{full && <p className="section-intro">Também atendemos idosos, com acolhimento sensível às questões da maturidade, da saúde emocional e do cuidado em diferentes etapas da vida.</p>}</div></section>; }
 export function Topics() { const topics = ["Saúde mental no trabalho", "Ansiedade e estresse", "Autoestima", "Bullying", "Adolescência e cobranças", "Inteligência emocional", "Relacionamentos e comunicação", "Dependência emocional", "Luto e mudanças", "Autoconhecimento"];
@@ -326,6 +384,92 @@ export function Lectures({ full = false }: { full?: boolean }) {
   </div></section>;
 }
 export function PlaySection() { return <section className="section lavender-band"><div className="site-container split-grid"><img className="rounded-photo" src={assetUrl(play.url)} alt="Simone Costa trabalhando com um paciente na infância" loading="lazy" /><div><SectionTitle eyebrow="Acolhimento na infância" center={false}>O brincar como caminho de <em>expressão</em></SectionTitle><p>Nas sessões infantis, o brincar e a criação de vínculos tornam o cuidado mais leve, seguro e significativo. O objetivo é ajudar a criança a nomear e compreender suas emoções, fortalecendo sua autoestima e suas relações.</p><Button asChild variant="careOutline"><Link to="/atendimento">Entender o atendimento <ArrowRight /></Link></Button></div></div></section>; }
+const locationPhotos = [
+  {
+    image: locationSpace,
+    alt: "Sala de atendimento do Espaço Shambala, com poltronas e sofá em um ambiente acolhedor",
+  },
+  {
+    image: locationLounge,
+    alt: "Recepção do Espaço Shambala com sofá, parede de tijolos e iluminação acolhedora",
+  },
+  {
+    image: locationCourtyard,
+    alt: "Área externa do Espaço Shambala com mesas, plantas e guarda-sóis",
+  },
+  {
+    image: locationExterior,
+    alt: "Fachada do Espaço Shambala na Rua Canário, em Moema",
+  },
+];
+
+function LocationPhotoCarousel() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const updateSelectedIndex = () => setSelectedIndex(api.selectedScrollSnap());
+    updateSelectedIndex();
+    api.on("select", updateSelectedIndex);
+
+    return () => {
+      api.off("select", updateSelectedIndex);
+    };
+  }, [api]);
+
+  return (
+    <div className="location-visual">
+      <Carousel
+        opts={{ loop: true }}
+        setApi={setApi}
+        aria-label="Fotos do Espaço Shambala"
+        className="location-carousel"
+      >
+        <CarouselContent>
+          {locationPhotos.map(({ image, alt }) => (
+            <CarouselItem key={image.url} className="location-slide">
+              <img className="location-photo" src={assetUrl(image.url)} alt={alt} loading="lazy" />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious
+          aria-label="Foto anterior"
+          className="location-carousel-control location-carousel-previous"
+        />
+        <CarouselNext
+          aria-label="Próxima foto"
+          className="location-carousel-control location-carousel-next"
+        />
+      </Carousel>
+      <div className="location-photo-caption">
+        <span className="eyebrow">Um espaço de cuidado e acolhimento</span>
+        <span className="location-photo-title">Espaço Shambala</span>
+        <span className="location-photo-address">Rua Canário, 384 · Moema</span>
+        <a className="map-link" href={map} target="_blank" rel="noopener noreferrer">
+          Ver localização <ArrowRight size={16} />
+        </a>
+        <div className="location-carousel-dots" aria-label="Escolher foto">
+          {locationPhotos.map(({ alt }, index) => (
+            <button
+              key={alt}
+              type="button"
+              aria-label={`Mostrar foto ${index + 1} de ${locationPhotos.length}`}
+              aria-pressed={selectedIndex === index}
+              className="location-carousel-dot"
+              onClick={() => api?.scrollTo(index)}
+            />
+          ))}
+        </div>
+        <span className="sr-only" aria-live="polite">
+          Foto {selectedIndex + 1} de {locationPhotos.length}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function Location() {
   return <section className="section" id="onde-atendo"><div className="site-container">
     <SectionTitle eyebrow="Onde atendo">Espaço Shambala, em <em>Moema</em></SectionTitle>
@@ -342,11 +486,7 @@ export function Location() {
           <WhatsApp>Agendar uma conversa</WhatsApp>
         </div>
       </div>
-      <a className="location-visual" href={map} target="_blank" rel="noopener noreferrer">
-        <Leaf size={42} /><span className="eyebrow">Cuidado · Escuta · Transformação</span>
-        <h3>Espaço Shambala</h3><p>Rua Canário, 384 – Moema</p>
-        <span className="map-link">Ver localização <ArrowRight size={16} /></span>
-      </a>
+      <LocationPhotoCarousel />
     </div>
     <div className="two-grid location-types">
       <div><Building2 /><h3>Presencial</h3><p>Rua Canário, 384 – Moema, São Paulo. Um espaço tranquilo e reservado para as sessões.</p></div>
