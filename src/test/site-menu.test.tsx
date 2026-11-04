@@ -70,7 +70,7 @@ describe("PlaySection", () => {
     );
     expect(
       screen.getByAltText(
-        "Simone Costa segurando uma boneca durante uma atividade lúdica para o atendimento infantil",
+        "Simone Costa sentada com bonecos terapêuticos ao lado de um quadro com a frase Sentir também é aprender",
       ),
     ).toBeInTheDocument();
   });
@@ -87,6 +87,14 @@ describe("AboutSection", () => {
     expect(
       screen.getByAltText(
         "Simone Costa apoiada em livros sobre terapia, autoconhecimento e ansiedade",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Psicóloga formada em 2006" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Sou psicóloga, formada desde 2006, e atuo no cuidado da saúde mental de crianças, adolescentes, adultos e idosos. Atualmente, sou pós-graduanda em Terapia de Casal.",
       ),
     ).toBeInTheDocument();
   });
