@@ -231,10 +231,15 @@
 @media(max-width:760px) {
  .about-image img { height: auto; aspect-ratio: 3 / 4; }
  .rounded-photo { height: auto; aspect-ratio: 1294 / 940; }
- .audience-card img { height: auto; aspect-ratio: 2 / 3; }
+ .audience-grid { grid-template-columns: minmax(0,1fr); }
+ .audience-card { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); min-width: 0; }
+ .audience-card img { height: 100%; min-height: 200px; aspect-ratio: auto; }
+ .audience-card > div { min-width: 0; padding: 20px; align-self: center; }
+ .audience-card h3,.audience-card p { overflow-wrap: break-word; }
  .lecture-image { height: 440px; padding: 14px; }
  .specialty-icons { grid-template-columns: 1fr; max-width: 520px; }
 }
+@media(max-width:400px) { .audience-card > div { padding: 16px; } }
 @media(max-width:760px) { .header-inner { height: 124px; } .official-logo { width: 108px; height: auto; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 

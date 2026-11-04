@@ -97,6 +97,11 @@ describe("AboutSection", () => {
         "Sou psicóloga, formada desde 2006, e atuo no cuidado da saúde mental de crianças, adolescentes, adultos e idosos. Atualmente, sou pós-graduanda em Terapia de Casal.",
       ),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Meu compromisso é acolher as dores e potencializar as forças de cada pessoa, oferecendo um espaço de escuta e respeito, que favoreça o autoconhecimento, a construção da própria identidade e o desenvolvimento de mais segurança, autonomia e confiança.",
+      ),
+    ).toBeInTheDocument();
   });
 });
 
